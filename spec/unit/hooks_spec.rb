@@ -19,9 +19,9 @@ end
 describe CocoapodsMangle::Hooks do
   let(:umbrella_targets) do
     [
-      instance_double('umbrella target A', cocoapods_target_label: 'Pods-A'),
-      instance_double('umbrella target B', cocoapods_target_label: 'Pods-B'),
-      instance_double('umbrella target C', cocoapods_target_label: 'Pods-C')
+      instance_double('umbrella target A', cocoapods_target_label: 'Pods-A', user_targets: [instance_double('target A', name: 'A')]),
+      instance_double('umbrella target B', cocoapods_target_label: 'Pods-B', user_targets: [instance_double('target B', name: 'B')]),
+      instance_double('umbrella target C', cocoapods_target_label: 'Pods-C', user_targets: [instance_double('target C', name: 'C')])
     ]
   end
   let(:installer_context) { instance_double('installer', pods_project: double('pods project'), umbrella_targets: umbrella_targets) }
@@ -42,7 +42,7 @@ describe CocoapodsMangle::Hooks do
     let(:post_install_options) do
       {
         xcconfig_path: "/parent/#{options[:xcconfig_path]}",
-        pod_targets: umbrella_targets[0..1],
+        umbrella_pod_targets: umbrella_targets[0..1],
         pods_project: installer_context.pods_project,
         mangle_prefix: options[:mangle_prefix]
       }
@@ -56,7 +56,7 @@ describe CocoapodsMangle::Hooks do
     let(:post_install_options) do
       {
         xcconfig_path: "/support_files/#{CocoapodsMangle::NAME}.xcconfig",
-        pod_targets: umbrella_targets[0..1],
+        umbrella_pod_targets: umbrella_targets[0..1],
         pods_project: installer_context.pods_project,
         mangle_prefix: 'Project_'
       }
@@ -70,7 +70,7 @@ describe CocoapodsMangle::Hooks do
     let(:post_install_options) do
       {
         xcconfig_path: "/support_files/#{CocoapodsMangle::NAME}.xcconfig",
-        pod_targets: umbrella_targets,
+        umbrella_pod_targets: umbrella_targets,
         pods_project: installer_context.pods_project,
         mangle_prefix: 'Project_'
       }

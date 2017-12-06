@@ -3,13 +3,13 @@ require 'cocoapods_mangle/config'
 
 describe CocoapodsMangle::Config do
   let(:xcconfig_path) { 'path/to/mangle.xcconfig' }
-  let(:pod_targets) { [instance_double('target', cocoapods_target_label: 'Pods-A')] }
+  let(:umbrella_pod_targets) { [instance_double('target', cocoapods_target_label: 'Pods-A')] }
   let(:pods_project) { double('pods project') }
   let(:mangle_prefix) { 'prefix_' }
   let(:specs_checksum) { 'checksum' }
   let(:subject) do
     CocoapodsMangle::Config.new(xcconfig_path: xcconfig_path,
-                                pod_targets: pod_targets,
+                                umbrella_pod_targets: umbrella_pod_targets,
                                 pods_project: pods_project,
                                 mangle_prefix: mangle_prefix,
                                 specs_checksum: specs_checksum)
@@ -23,7 +23,7 @@ describe CocoapodsMangle::Config do
     let(:builder) { double('builder') }
 
     before do
-      allow(CocoapodsMangle::Builder).to receive(:new).with(pods_project, pod_targets).and_return(builder)
+      allow(CocoapodsMangle::Builder).to receive(:new).with(pods_project, umbrella_pod_targets).and_return(builder)
       allow(builder).to receive(:build!)
       allow(builder).to receive(:binaries_to_mangle).and_return(binaries_to_mangle)
       allow(CocoapodsMangle::Defines).to receive(:mangling_defines).with(mangle_prefix, binaries_to_mangle).and_return(mangling_defines)
