@@ -2,32 +2,30 @@ require File.expand_path('../../spec_helper', __FILE__)
 require 'cocoapods_mangle/config'
 
 describe CocoapodsMangle::Config do
-  let(:xcconfig_path) { 'path/to/mangle.xcconfig' }
-  let(:umbrella_pod_targets) { [instance_double('target', cocoapods_target_label: 'Pods-A')] }
-  let(:pods_project) { double('pods project') }
-  let(:mangle_prefix) { 'prefix_' }
-  let(:specs_checksum) { 'checksum' }
+  let(:context) do 
+    instance_double('Mangle context',
+                    xcconfig_path: 'path/to/mangle.xcconfig',
+                    umbrella_pod_targets: [instance_double('target', cocoapods_target_label: 'Pods-A')],
+                    pods_project: double('pods project'),
+                    mangle_prefix: 'prefix_',
+                    specs_checksum: 'checksum')
+  end
   let(:subject) do
-    CocoapodsMangle::Config.new(xcconfig_path: xcconfig_path,
-                                umbrella_pod_targets: umbrella_pod_targets,
-                                pods_project: pods_project,
-                                mangle_prefix: mangle_prefix,
-                                specs_checksum: specs_checksum)
+    CocoapodsMangle::Config.new(context)
   end
 
   context '.update_mangling!' do
     let(:xcconfig_file) { double('config') }
-    let(:mangle_prefix) { 'prefix_' }
     let(:binaries_to_mangle) { ['binary_A', 'binary_B'] }
     let(:mangling_defines) { ['A=B', 'C=D'] }
     let(:builder) { double('builder') }
 
     before do
-      allow(CocoapodsMangle::Builder).to receive(:new).with(pods_project, umbrella_pod_targets).and_return(builder)
+      allow(CocoapodsMangle::Builder).to receive(:new).with(context.pods_project, context.umbrella_pod_targets).and_return(builder)
       allow(builder).to receive(:build!)
       allow(builder).to receive(:binaries_to_mangle).and_return(binaries_to_mangle)
-      allow(CocoapodsMangle::Defines).to receive(:mangling_defines).with(mangle_prefix, binaries_to_mangle).and_return(mangling_defines)
-      allow(File).to receive(:open).with(xcconfig_path, 'w').and_yield(xcconfig_file)
+      allow(CocoapodsMangle::Defines).to receive(:mangling_defines).with(context.mangle_prefix, binaries_to_mangle).and_return(mangling_defines)
+      allow(File).to receive(:open).with(context.xcconfig_path, 'w').and_yield(xcconfig_file)
     end
 
     it 'updates mangling' do
@@ -43,10 +41,14 @@ describe CocoapodsMangle::Config do
   end
 
   context '.needs_update?' do
-    let(:xcconfig_path) { "#{File.dirname(__FILE__)}/../fixtures/mangle.xcconfig" }
+    before do
+      allow(context).to receive(:xcconfig_path).and_return("#{File.dirname(__FILE__)}/../fixtures/mangle.xcconfig")
+    end
 
     context 'equal checksums' do
-      let(:specs_checksum) { 'checksum' }
+      before do
+        allow(context).to receive(:specs_checksum).and_return('checksum')
+      end
 
       it 'does not need an update' do
         expect(subject.needs_update?).to eq(false)
@@ -54,7 +56,9 @@ describe CocoapodsMangle::Config do
     end
 
     context 'different checksums' do
-      let(:specs_checksum) { 'other_checksum' }
+      before do
+        allow(context).to receive(:specs_checksum).and_return('other_checksum')
+      end
 
       it 'needs an update' do
         expect(subject.needs_update?).to eq(true)
@@ -78,7 +82,7 @@ describe CocoapodsMangle::Config do
     let(:release_build_configuration) { double('release') }
 
     before do
-      allow(pods_project).to receive(:targets).and_return([pod_target])
+      allow(context.pods_project).to receive(:targets).and_return([pod_target])
       build_configurations = [debug_build_configuration, release_build_configuration]
       allow(pod_target).to receive(:build_configurations).and_return(build_configurations)
       build_configurations.each do |config|
@@ -107,7 +111,7 @@ describe CocoapodsMangle::Config do
       pod_xcconfig_contents = ''
       expect(pod_xcconfig_file).to receive(:write) { |arg| pod_xcconfig_contents = arg }
       subject.update_pod_xcconfig_for_mangling!(pod_xcconfig_path)
-      expect(pod_xcconfig_contents).to eq("#include \"#{xcconfig_path}\"\nGCC_PREPROCESSOR_DEFINITIONS = A=B $(MANGLING_DEFINES)\nKEY = VALUE")
+      expect(pod_xcconfig_contents).to eq("#include \"#{context.xcconfig_path}\"\nGCC_PREPROCESSOR_DEFINITIONS = A=B $(MANGLING_DEFINES)\nKEY = VALUE")
     end
   end
 end

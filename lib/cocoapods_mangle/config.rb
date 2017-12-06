@@ -9,32 +9,18 @@ module CocoapodsMangle
     MANGLING_DEFINES_XCCONFIG_KEY = 'MANGLING_DEFINES'
     MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY = 'MANGLED_SPECS_CHECKSUM'
 
-    # @param [Hash] params the params to configure mangling.
-    # @option params [String] :xcconfig_path 
-    #                The path to the mangling xcconfig
-    # @option params [String] :mangle_prefix
-    #                The prefix to prepend to mangled symbols
-    # @option params [Pod::Project] :pods_project
-    #                The Pods Xcode project
-    # @option params [Array<Pod::Installer::PostInstallHooksContext::UmbrellaTargetDescription>] :umbrella_pod_targets
-    #                the umbrella pod targets whose dependencies should be mangled
-    # @option params [String] :specs_checksum
-    #                A checksum representing the current state of the target dependencies
-    def initialize(params)
-      @xcconfig_path = params[:xcconfig_path]
-      @prefix = params[:mangle_prefix]
-      @pods_project = params[:pods_project]
-      @umbrella_pod_targets = params[:umbrella_pod_targets]
-      @specs_checksum = params[:specs_checksum]
+    # @param [CocoapodsMangle::Context] context The context for mangling.
+    def initialize(context)
+      @context = context
     end
 
     # Update the mangling xcconfig file with new mangling defines
     def update_mangling!
       Pod::UI.message '- Updating mangling xcconfig' do
-        builder = Builder.new(@pods_project, @umbrella_pod_targets)
+        builder = Builder.new(@context.pods_project, @context.umbrella_pod_targets)
         builder.build!
 
-        defines = Defines.mangling_defines(@prefix, builder.binaries_to_mangle)
+        defines = Defines.mangling_defines(@context.mangle_prefix, builder.binaries_to_mangle)
 
         contents = <<~MANGLE_XCCONFIG
           // This config file is automatically generated any time Podfile.lock changes
@@ -43,20 +29,20 @@ module CocoapodsMangle
           #{MANGLING_DEFINES_XCCONFIG_KEY} = #{defines.join(' ')}
 
           // This checksum is used to ensure mangling is up to date
-          #{MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY} = #{@specs_checksum}
+          #{MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY} = #{@context.specs_checksum}
         MANGLE_XCCONFIG
 
-        Pod::UI.message "- Writing '#{File.basename(@xcconfig_path)}'"
-        File.open(@xcconfig_path, 'w') { |xcconfig| xcconfig.write(contents) }
+        Pod::UI.message "- Writing '#{File.basename(@context.xcconfig_path)}'"
+        File.open(@context.xcconfig_path, 'w') { |xcconfig| xcconfig.write(contents) }
       end
     end
 
     # Does the mangling xcconfig need to be updated?
     # @return  [Truthy] Does the xcconfig need to be updated?
     def needs_update?
-      return true unless File.exist?(@xcconfig_path)
-      xcconfig_hash = Xcodeproj::Config.new(File.new(@xcconfig_path)).to_hash
-      needs_update = xcconfig_hash[MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY] != @specs_checksum
+      return true unless File.exist?(@context.xcconfig_path)
+      xcconfig_hash = Xcodeproj::Config.new(File.new(@context.xcconfig_path)).to_hash
+      needs_update = xcconfig_hash[MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY] != @context.specs_checksum
       Pod::UI.message '- Mangling config already up to date' unless needs_update
       needs_update
     end
@@ -65,7 +51,7 @@ module CocoapodsMangle
     def update_pod_xcconfigs_for_mangling!
       pod_xcconfigs = Set.new
 
-      @pods_project.targets.each do |target|
+      @context.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
           pod_xcconfigs.add(config.base_configuration_reference.real_path)
         end
@@ -83,7 +69,7 @@ module CocoapodsMangle
     # @param    [String] pod_xcconfig_path
     #           Path to the pod xcconfig to update
     def update_pod_xcconfig_for_mangling!(pod_xcconfig_path)
-      mangle_xcconfig_include = "#include \"#{@xcconfig_path}\"\n"
+      mangle_xcconfig_include = "#include \"#{@context.xcconfig_path}\"\n"
 
       gcc_preprocessor_defs = File.readlines(pod_xcconfig_path).select { |line| line =~ /GCC_PREPROCESSOR_DEFINITIONS/ }.first
       gcc_preprocessor_defs.strip!
