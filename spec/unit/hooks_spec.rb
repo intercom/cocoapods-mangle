@@ -1,4 +1,4 @@
-require 'cocoapods'
+require File.expand_path('../../spec_helper', __FILE__)
 require 'cocoapods_mangle/hooks'
 
 def trigger_post_install(installer_context, options)

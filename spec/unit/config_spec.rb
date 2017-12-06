@@ -1,3 +1,4 @@
+require File.expand_path('../../spec_helper', __FILE__)
 require 'cocoapods_mangle/config'
 
 describe CocoapodsMangle::Config do
@@ -42,7 +43,7 @@ describe CocoapodsMangle::Config do
   end
 
   context '.needs_update?' do
-    let(:xcconfig_path) { "#{File.dirname(__FILE__)}/fixtures/mangle.xcconfig" }
+    let(:xcconfig_path) { "#{File.dirname(__FILE__)}/../fixtures/mangle.xcconfig" }
 
     context 'equal checksums' do
       let(:specs_checksum) { 'checksum' }

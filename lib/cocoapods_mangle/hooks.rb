@@ -6,10 +6,13 @@ module CocoapodsMangle
       xcconfig_path = CocoapodsMangle::Hooks.xcconfig_path(installer_context, options)
       pod_targets = CocoapodsMangle::Hooks.pod_targets(installer_context, options)
       mangle_prefix = CocoapodsMangle::Hooks.mangle_prefix(pod_targets, options)
-      CocoapodsMangle::PostInstall.new(xcconfig_path: xcconfig_path,
-                                       pod_targets: pod_targets,
-                                       pods_project: installer_context.pods_project,
-                                       mangle_prefix: mangle_prefix).run!
+      post_install = CocoapodsMangle::PostInstall.new(xcconfig_path: xcconfig_path,
+                                                      pod_targets: pod_targets,
+                                                      pods_project: installer_context.pods_project,
+                                                      mangle_prefix: mangle_prefix)
+      Pod::UI.titled_section 'Updating mangling' do
+        post_install.run!
+      end
     end
 
     def self.xcconfig_path(installer_context, options)

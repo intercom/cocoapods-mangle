@@ -1,5 +1,5 @@
+require File.expand_path('../../spec_helper', __FILE__)
 require 'cocoapods_mangle/post_install'
-require 'digest'
 
 describe CocoapodsMangle::PostInstall do
   let(:xcconfig_path) { 'path/to/mangle.xcconfig' }

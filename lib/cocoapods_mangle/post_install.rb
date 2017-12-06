@@ -1,4 +1,5 @@
 require 'digest'
+require 'cocoapods'
 require 'cocoapods_mangle/config'
 
 module CocoapodsMangle
@@ -11,12 +12,7 @@ module CocoapodsMangle
     end
 
     def run!
-      if config.needs_update?
-        puts 'Updating mangling config'
-        config.update_mangling!
-      else
-        puts 'Mangling config already up to date'
-      end
+      config.update_mangling! if config.needs_update?
       config.update_pod_xcconfigs_for_mangling!
     end
 

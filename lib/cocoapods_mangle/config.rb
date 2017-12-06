@@ -1,4 +1,5 @@
 require 'xcodeproj'
+require 'cocoapods'
 require 'cocoapods_mangle/builder'
 require 'cocoapods_mangle/defines'
 
@@ -16,28 +17,33 @@ module CocoapodsMangle
     end
 
     def update_mangling!
-      builder = Builder.new(@pods_project, @pod_targets)
-      builder.build!
+      Pod::UI.message '- Updating mangling xcconfig' do
+        builder = Builder.new(@pods_project, @pod_targets)
+        builder.build!
 
-      defines = Defines.mangling_defines(@prefix, builder.binaries_to_mangle)
+        defines = Defines.mangling_defines(@prefix, builder.binaries_to_mangle)
 
-      contents = <<~MANGLE_XCCONFIG
-        // This config file is automatically generated any time Podfile.lock changes
-        // Changes should be committed to git along with Podfile.lock
+        contents = <<~MANGLE_XCCONFIG
+          // This config file is automatically generated any time Podfile.lock changes
+          // Changes should be committed to git along with Podfile.lock
 
-        #{MANGLING_DEFINES_XCCONFIG_KEY} = #{defines.join(' ')}
+          #{MANGLING_DEFINES_XCCONFIG_KEY} = #{defines.join(' ')}
 
-        // This checksum is used to ensure mangling is up to date
-        #{MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY} = #{@specs_checksum}
-      MANGLE_XCCONFIG
+          // This checksum is used to ensure mangling is up to date
+          #{MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY} = #{@specs_checksum}
+        MANGLE_XCCONFIG
 
-      File.open(@xcconfig_path, 'w') { |xcconfig| xcconfig.write(contents) }
+        Pod::UI.message "- Writing '#{File.basename(@xcconfig_path)}'"
+        File.open(@xcconfig_path, 'w') { |xcconfig| xcconfig.write(contents) }
+      end
     end
 
     def needs_update?
       return true unless File.exist?(@xcconfig_path)
       xcconfig_hash = Xcodeproj::Config.new(File.new(@xcconfig_path)).to_hash
-      xcconfig_hash[MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY] != @specs_checksum
+      needs_update = xcconfig_hash[MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY] != @specs_checksum
+      Pod::UI.message '- Mangling config already up to date' unless needs_update
+      needs_update
     end
 
     def update_pod_xcconfigs_for_mangling!
@@ -49,8 +55,11 @@ module CocoapodsMangle
         end
       end
 
-      pod_xcconfigs.each do |pod_xcconfig_path|
-        update_pod_xcconfig_for_mangling!(pod_xcconfig_path)
+      Pod::UI.message "- Updating Pod xcconfig files" do
+        pod_xcconfigs.each do |pod_xcconfig_path|
+          Pod::UI.message "- Updating '#{File.basename(pod_xcconfig_path)}'"
+          update_pod_xcconfig_for_mangling!(pod_xcconfig_path)
+        end
       end
     end
 
