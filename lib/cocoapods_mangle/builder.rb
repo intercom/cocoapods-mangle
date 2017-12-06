@@ -1,19 +1,30 @@
 require 'cocoapods'
 
 module CocoapodsMangle
+  # Builds the supplied targets of a Pods Xcode project.
+  #
+  # This is useful for building pods for mangling purposes
   class Builder
     BUILT_PRODUCTS_DIR = 'build/Release-iphonesimulator'
 
-    def initialize(pods_project, pod_targets)
+    # @param    [Pod::Project] pods_project
+    #           the pods project to build.
+    #
+    # @param    [Array<Pod::Installer::PostInstallHooksContext::UmbrellaTargetDescription>] umbrella_pod_targets
+    #           the umbrella pod targets to build.
+    def initialize(pods_project, umbrella_pod_targets)
       @pods_project = pods_project
-      @pod_targets = pod_targets
+      @umbrella_pod_targets = umbrella_pod_targets
     end
 
+    # Build the pods project
     def build!
       FileUtils.remove_dir(BUILT_PRODUCTS_DIR, true)
-      @pod_targets.each { |target| build_target(target.cocoapods_target_label) }
+      @umbrella_pod_targets.each { |target| build_target(target.cocoapods_target_label) }
     end
 
+    # Gives the built binaries to be mangled
+    # @return  [Array<String>] Paths to the build pods binaries
     def binaries_to_mangle
       static_binaries_to_mangle + dynamic_binaries_to_mangle
     end

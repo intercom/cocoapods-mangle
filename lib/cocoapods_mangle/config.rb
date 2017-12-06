@@ -4,21 +4,34 @@ require 'cocoapods_mangle/builder'
 require 'cocoapods_mangle/defines'
 
 module CocoapodsMangle
+  # Manages xcconfig files for configuring mangling.
   class Config
     MANGLING_DEFINES_XCCONFIG_KEY = 'MANGLING_DEFINES'
     MANGLED_SPECS_CHECKSUM_XCCONFIG_KEY = 'MANGLED_SPECS_CHECKSUM'
 
+    # @param [Hash] params the params to configure mangling.
+    # @option params [String] :xcconfig_path 
+    #                The path to the mangling xcconfig
+    # @option params [String] :mangle_prefix
+    #                The prefix to prepend to mangled symbols
+    # @option params [Pod::Project] :pods_project
+    #                The Pods Xcode project
+    # @option params [Array<Pod::Installer::PostInstallHooksContext::UmbrellaTargetDescription>] :umbrella_pod_targets
+    #                the umbrella pod targets whose dependencies should be mangled
+    # @option params [String] :specs_checksum
+    #                A checksum representing the current state of the target dependencies
     def initialize(params)
       @xcconfig_path = params[:xcconfig_path]
       @prefix = params[:mangle_prefix]
       @pods_project = params[:pods_project]
-      @pod_targets = params[:pod_targets]
+      @umbrella_pod_targets = params[:umbrella_pod_targets]
       @specs_checksum = params[:specs_checksum]
     end
 
+    # Update the mangling xcconfig file with new mangling defines
     def update_mangling!
       Pod::UI.message '- Updating mangling xcconfig' do
-        builder = Builder.new(@pods_project, @pod_targets)
+        builder = Builder.new(@pods_project, @umbrella_pod_targets)
         builder.build!
 
         defines = Defines.mangling_defines(@prefix, builder.binaries_to_mangle)
@@ -38,6 +51,8 @@ module CocoapodsMangle
       end
     end
 
+    # Does the mangling xcconfig need to be updated?
+    # @return  [Truthy] Does the xcconfig need to be updated?
     def needs_update?
       return true unless File.exist?(@xcconfig_path)
       xcconfig_hash = Xcodeproj::Config.new(File.new(@xcconfig_path)).to_hash
@@ -46,6 +61,7 @@ module CocoapodsMangle
       needs_update
     end
 
+    # Update all pod xcconfigs to use the mangling defines
     def update_pod_xcconfigs_for_mangling!
       pod_xcconfigs = Set.new
 
@@ -63,6 +79,9 @@ module CocoapodsMangle
       end
     end
 
+    # Update a mangling config to use the mangling defines
+    # @param    [String] pod_xcconfig_path
+    #           Path to the pod xcconfig to update
     def update_pod_xcconfig_for_mangling!(pod_xcconfig_path)
       mangle_xcconfig_include = "#include \"#{@xcconfig_path}\"\n"
 

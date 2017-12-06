@@ -1,5 +1,11 @@
 module CocoapodsMangle
+  # Generates mangling defines from a provided list of binaries
   module Defines
+    # @param  [String] prefix
+    #         The prefix to prefix to mangled symbols
+    # @param  [Array<String>] binaries_to_mangle
+    #         The binaries containing symbols to be mangled
+    # @return [Array<String>] The mangling defines
     def self.mangling_defines(prefix, binaries_to_mangle)
       classes = classes(binaries_to_mangle)
       constants = constants(binaries_to_mangle)
@@ -11,6 +17,10 @@ module CocoapodsMangle
       defines
     end
 
+    # Get the classes defined in a list of binaries
+    # @param  [Array<String>] binaries_to_mangle
+    #         The binaries containing symbols to be mangled
+    # @return [Array<String>] The classes defined in the binaries
     def self.classes(binaries)
       all_symbols = run_nm(binaries, '-gU')
       class_symbols = all_symbols.select do |symbol|
@@ -20,6 +30,10 @@ module CocoapodsMangle
       class_symbols.uniq
     end
 
+    # Get the constants defined in a list of binaries
+    # @param  [Array<String>] binaries_to_mangle
+    #         The binaries containing symbols to be mangled
+    # @return [Array<String>] The constants defined in the binaries
     def self.constants(binaries)
       all_symbols = run_nm(binaries, '-gU')
       consts = all_symbols.select { |const| const[/ S /] }
@@ -34,6 +48,10 @@ module CocoapodsMangle
       consts + other_consts
     end
 
+    # Get the category selectors defined in a list of binaries
+    # @param  [Array<String>] binaries_to_mangle
+    #         The binaries containing symbols to be mangled
+    # @return [Array<String>] The category selectors defined in the binaries
     def self.category_selectors(binaries)
       symbols = run_nm(binaries, '-U')
       selectors = symbols.select { |selector| selector[/ t [-|+]\[[^ ]*\([^ ]*\) [^ ]*\]/] }
@@ -42,12 +60,22 @@ module CocoapodsMangle
       selectors.uniq
     end
 
+    # Prefix a given list of symbols
+    # @param  [String] prefix
+    #         The prefix to prepend
+    # @param  [Array<String>] symbols
+    #         The symbols to prefix
     def self.prefix_symbols(prefix, symbols)
       symbols.map do |symbol|
         "#{symbol}=#{prefix}#{symbol}"
       end
     end
 
+    # Prefix a given list of selectors
+    # @param  [String] prefix
+    #         The prefix to use
+    # @param  [Array<String>] selectors
+    #         The selectors to prefix
     def self.prefix_selectors(prefix, selectors)
       selectors_to_prefix = selectors
       defines = []

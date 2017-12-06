@@ -3,12 +3,12 @@ require 'cocoapods_mangle/post_install'
 
 describe CocoapodsMangle::PostInstall do
   let(:xcconfig_path) { 'path/to/mangle.xcconfig' }
-  let(:pod_targets) { [instance_double('target', cocoapods_target_label: 'Pods-A')] }
+  let(:umbrella_pod_targets) { [instance_double('target', cocoapods_target_label: 'Pods-A')] }
   let(:pods_project) { double('pods project') }
   let(:mangle_prefix) { 'prefix_' }
   let(:subject) do
     CocoapodsMangle::PostInstall.new(xcconfig_path: xcconfig_path,
-                                     pod_targets: pod_targets,
+                                     umbrella_pod_targets: umbrella_pod_targets,
                                      pods_project: pods_project,
                                      mangle_prefix: mangle_prefix)
   end
@@ -50,7 +50,7 @@ describe CocoapodsMangle::PostInstall do
       expect(CocoapodsMangle::Config).to receive(:new).with(xcconfig_path: xcconfig_path,
                                                             mangle_prefix: mangle_prefix,
                                                             pods_project: pods_project,
-                                                            pod_targets: pod_targets,
+                                                            umbrella_pod_targets: umbrella_pod_targets,
                                                             specs_checksum: specs_checksum).and_call_original
       expect(subject.config).to be_a CocoapodsMangle::Config
     end
@@ -62,7 +62,7 @@ describe CocoapodsMangle::PostInstall do
     let(:spec_B) { instance_double('Spec B', checksum: 'checksum_B') }
 
     before do
-      allow(pod_targets.first).to receive(:specs).and_return([spec_A, spec_B])
+      allow(umbrella_pod_targets.first).to receive(:specs).and_return([spec_A, spec_B])
     end
 
     it 'gives the checksum' do
