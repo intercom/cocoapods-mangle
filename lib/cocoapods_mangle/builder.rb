@@ -1,3 +1,5 @@
+require 'cocoapods'
+
 module CocoapodsMangle
   class Builder
     BUILT_PRODUCTS_DIR = 'build/Release-iphonesimulator'
@@ -19,9 +21,11 @@ module CocoapodsMangle
     private
 
     def build_target(target)
+      Pod::UI.message "- Building '#{target}'"
       output = `xcodebuild -project "#{@pods_project.path}" -target "#{target}" -configuration Release -sdk iphonesimulator build 2>&1`
-      return true if $?.success?
-      raise "error: Building the Pods target '#{target}' failed.\ This is the build log:\n#{output}"
+      unless $?.success?
+        raise "error: Building the Pods target '#{target}' failed.\ This is the build log:\n#{output}"
+      end
     end
 
     def static_binaries_to_mangle
