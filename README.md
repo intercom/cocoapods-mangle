@@ -1,4 +1,4 @@
-![Intercom](sample/Intercom_logo-github.png)
+![Intercom](Intercom_logo-github.png)
 
 [![CircleCI](https://circleci.com/gh/intercom/cocoapods-mangle.svg?style=svg)](https://circleci.com/gh/intercom/cocoapods-mangle)
 
@@ -79,6 +79,14 @@ MANGLED_SPECS_CHECKSUM = 18f61e6e6172fb87ddc7341f3537f30f8c7a3edc
 
 This is included in `GCC_PREPROCESSOR_DEFINITIONS` of the `xcconfig` file for every target. All of these symbols will be mangled on subsequent builds.
 
+The symbols that will be mangled are:
+
+- Objective C classes. e.g. `AFNetworkReachabilityManager` becomes `MyFramework_AFNetworkReachabilityManager`.
+- C and Objective C constants. `AFNetworkingReachabilityDidChangeNotification` becomes `MyFramework_AFNetworkingReachabilityDidChangeNotification`.
+- Objective C category selectors. The first component of the selector is mangled. e.g. `-[NSString xxx_abc:def]` becomes `-[NSString MyFramework_xxx_abc:def]`.
+
+The plugin has only been fully tested with Objective C dependencies. There is no reason why this could not also work for Swift.
+
 ## Usage
 
 cocoapods-mangle can be used by adding it to your `Podfile` like this:
@@ -108,6 +116,11 @@ plugin 'cocoapods-mangle', targets: ['MyTarget'],
 ## Caveats
 
 - cocoapods-mangle will only work for source dependencies. Pre-compiled frameworks cannot be mangled.
-- `pod install` will be slower when you change a dependency, particularly if your app/SDK depends on many pods.
 - Currently only supports iOS. It should be very straightforward to extend support to macOS, tvOS or watchOS.
-- Category mangling may fail if the dependency does not correctly prefix its category selectors (see http://nshipster.com/namespacing/#method-prefixes).
+- Category mangling may cause issues if the dependency does not correctly prefix its category selectors (see http://nshipster.com/namespacing/#method-prefixes).
+
+## Related links
+
+- [CocoaPods Packager](https://github.com/cocoapods/cocoapods-packager) has similar mangling functionality for packaging `.podspec` files.
+- http://blog.sigmapoint.pl/avoiding-dependency-collisions-in-ios-static-library-managed-by-cocoapods/
+- http://pdx.esri.com/blog/namespacing-dependencies/
