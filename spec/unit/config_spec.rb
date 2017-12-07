@@ -41,8 +41,16 @@ describe CocoapodsMangle::Config do
   end
 
   context '.needs_update?' do
+    let(:xcconfig_file) { double('config file') }
+    let(:xcodeproj_config) { double('xcodeproj config') }
+    let(:xcconfig_specs_checksum) { 'checksum' }
+
     before do
-      allow(context).to receive(:xcconfig_path).and_return("#{File.dirname(__FILE__)}/../fixtures/mangle.xcconfig")
+      allow(File).to receive(:exist?).with(context.xcconfig_path).and_return(true)
+      allow(File).to receive(:new).with(context.xcconfig_path).and_return(xcconfig_file)
+      allow(Xcodeproj::Config).to receive(:new).with(xcconfig_file).and_return(xcodeproj_config)
+      allow(xcodeproj_config).to receive(:to_hash).and_return('MANGLING_DEFINES' => 'A=B C=D',
+                                                              'MANGLED_SPECS_CHECKSUM' => "#{xcconfig_specs_checksum}")
     end
 
     context 'equal checksums' do
@@ -67,7 +75,7 @@ describe CocoapodsMangle::Config do
 
     context 'no config' do
       before do
-        allow(File).to receive(:exist?).and_return(false)
+        allow(File).to receive(:exist?).with(context.xcconfig_path).and_return(false)
       end
 
       it 'needs an update' do
