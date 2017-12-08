@@ -1,14 +1,16 @@
 version: 2
 jobs:
   build:
-    docker:
-       - image: circleci/ruby:2.3.4
+    macos:
+      xcode: "9.1.0"
+    shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
       - restore_cache:
           keys:
-          - dependencies-{{ checksum "Gemfile.lock" }}
-          - dependencies-
+          - macos-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum ".circleci/config.yml" }}
+          - macos-dependencies-{{ checksum "Gemfile.lock" }}
+          - macos-dependencies-
       - run:
           name: install dependencies
           command: |
@@ -16,7 +18,10 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: dependencies-{{ checksum "Gemfile.lock" }}
+          key: macos-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum ".circleci/config.yml" }}
+      - run:
+          name: Prepare CocoaPods specs repo
+          command: curl -sS https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash
       - run:
           name: run tests
           command: |
@@ -24,6 +29,6 @@ jobs:
             bundle exec rspec --format RspecJunitFormatter \
                               --out /tmp/test-results/rspec.xml \
                               --format progress \
-                              spec/unit/
+                              spec/
       - store_test_results:
           path: /tmp/test-results

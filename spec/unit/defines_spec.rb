@@ -3,10 +3,10 @@ require 'cocoapods_mangle/defines'
 
 describe CocoapodsMangle::Defines do
   let(:non_global_defined_symbols) do
-    File.read("#{File.dirname(__FILE__)}/../fixtures/non_global_defined_symbols.txt").split("\n")
+    File.read("#{File.dirname(__FILE__)}/../fixtures/symbols/non_global_defined_symbols.txt").split("\n")
   end
   let(:all_defined_symbols) do
-    File.read("#{File.dirname(__FILE__)}/../fixtures/all_defined_symbols.txt").split("\n")
+    File.read("#{File.dirname(__FILE__)}/../fixtures/symbols/all_defined_symbols.txt").split("\n")
   end
   let(:defines) { CocoapodsMangle::Defines.mangling_defines('Prefix_', ['A.a', 'B.a']) }
 

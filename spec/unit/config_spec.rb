@@ -25,6 +25,7 @@ describe CocoapodsMangle::Config do
       allow(builder).to receive(:build!)
       allow(builder).to receive(:binaries_to_mangle).and_return(binaries_to_mangle)
       allow(CocoapodsMangle::Defines).to receive(:mangling_defines).with(context.mangle_prefix, binaries_to_mangle).and_return(mangling_defines)
+      allow(File).to receive(:open).and_call_original
       allow(File).to receive(:open).with(context.xcconfig_path, 'w').and_yield(xcconfig_file)
     end
 
@@ -41,8 +42,18 @@ describe CocoapodsMangle::Config do
   end
 
   context '.needs_update?' do
+    let(:xcconfig_file) { double('config file') }
+    let(:xcodeproj_config) { double('xcodeproj config') }
+    let(:xcconfig_specs_checksum) { 'checksum' }
+
     before do
-      allow(context).to receive(:xcconfig_path).and_return("#{File.dirname(__FILE__)}/../fixtures/mangle.xcconfig")
+      allow(File).to receive(:exist?).and_call_original
+      allow(File).to receive(:exist?).with(context.xcconfig_path).and_return(true)
+      allow(File).to receive(:new).and_call_original
+      allow(File).to receive(:new).with(context.xcconfig_path).and_return(xcconfig_file)
+      allow(Xcodeproj::Config).to receive(:new).with(xcconfig_file).and_return(xcodeproj_config)
+      allow(xcodeproj_config).to receive(:to_hash).and_return('MANGLING_DEFINES' => 'A=B C=D',
+                                                              'MANGLED_SPECS_CHECKSUM' => "#{xcconfig_specs_checksum}")
     end
 
     context 'equal checksums' do
@@ -67,7 +78,7 @@ describe CocoapodsMangle::Config do
 
     context 'no config' do
       before do
-        allow(File).to receive(:exist?).and_return(false)
+        allow(File).to receive(:exist?).with(context.xcconfig_path).and_return(false)
       end
 
       it 'needs an update' do
@@ -102,8 +113,11 @@ describe CocoapodsMangle::Config do
     let(:pod_xcconfig_file) { double('pod_config') }
 
     before do
+      allow(File).to receive(:readlines).and_call_original
       allow(File).to receive(:readlines).and_return(pod_xcconfig_content.split("\n"))
+      allow(File).to receive(:read).and_call_original
       allow(File).to receive(:read).and_return(pod_xcconfig_content)
+      allow(File).to receive(:open).and_call_original
       allow(File).to receive(:open).with(pod_xcconfig_path, 'w').and_yield(pod_xcconfig_file)
     end
 

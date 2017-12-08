@@ -48,6 +48,20 @@ describe CocoapodsMangle::Context do
       include_examples 'initializing context'
     end
 
+    context 'only targets defined in options, with space in project name' do
+      let(:options) { { targets: ['A', 'B'] } }
+      let(:xcconfig_path) { "/support_files/#{CocoapodsMangle::NAME}.xcconfig" }
+      let(:umbrella_pod_targets) { umbrella_targets[0..1] }
+      let(:pods_project) { installer_context.pods_project }
+      let(:mangle_prefix) { 'Project_Name_' }
+
+      before do
+        allow(umbrella_targets.first).to receive_message_chain(:user_project, :path).and_return('path/to/Project Name.xcodeproj')
+      end
+
+      include_examples 'initializing context'
+    end
+
     context 'no options' do
       let(:options) { {} }
       let(:xcconfig_path) { "/support_files/#{CocoapodsMangle::NAME}.xcconfig" }

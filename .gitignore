@@ -1,3 +1,17 @@
 .DS_Store
 pkg
 .idea/
+.Trashes
+*~.nib
+.bundle/
+DerivedData/
+build/
+xcuserdata/
+.bundle/
+.idea/
+*.xcworkspace
+*.xccheckout
+xcschememanagement.plist
+.irb-history
+Pods/
+*.xcworkspacedata

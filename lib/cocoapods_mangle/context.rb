@@ -64,7 +64,8 @@ module CocoapodsMangle
     def build_mangle_prefix(umbrella_pod_targets, user_mangle_prefix)
       unless user_mangle_prefix
         project_path = umbrella_pod_targets.first.user_project.path
-        return File.basename(project_path, '.xcodeproj') + '_'
+        project_name = File.basename(project_path, '.xcodeproj')
+        return project_name.tr(' ', '_') + '_'
       end
       user_mangle_prefix
     end
