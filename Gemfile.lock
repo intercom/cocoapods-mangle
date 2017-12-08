@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocoapods-mangle (0.0.1)
+    cocoapods-mangle (1.0.0)
       cocoapods (~> 1.0)
 
 GEM
