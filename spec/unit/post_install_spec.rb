@@ -2,24 +2,20 @@ require File.expand_path('../../spec_helper', __FILE__)
 require 'cocoapods_mangle/post_install'
 
 describe CocoapodsMangle::PostInstall do
-  let(:xcconfig_path) { 'path/to/mangle.xcconfig' }
-  let(:umbrella_pod_targets) { [instance_double('target', cocoapods_target_label: 'Pods-A')] }
-  let(:pods_project) { double('pods project') }
-  let(:mangle_prefix) { 'prefix_' }
-  let(:subject) do
-    CocoapodsMangle::PostInstall.new(xcconfig_path: xcconfig_path,
-                                     umbrella_pod_targets: umbrella_pod_targets,
-                                     pods_project: pods_project,
-                                     mangle_prefix: mangle_prefix)
+  let(:context) do 
+    instance_double('Mangle context')
   end
+  let(:subject) do
+    CocoapodsMangle::PostInstall.new(context)
+  end
+  let(:config) { double('config') }
 
   context '.run!' do
-    let(:config) { double('config') }
     let(:specs_checksum) { 'checksum' }
 
     before do
       allow(subject).to receive(:config).and_return(config)
-      allow(subject).to receive(:specs_checksum).and_return(specs_checksum)
+      allow(context).to receive(:specs_checksum).and_return(specs_checksum)
     end
 
     it 'updates mangling and pod xcconfigs' do
@@ -44,30 +40,12 @@ describe CocoapodsMangle::PostInstall do
 
     before do
       allow(subject).to receive(:specs_checksum).and_return(specs_checksum)
+      allow(CocoapodsMangle::Config).to receive(:new).with(context).and_return(config)
     end
 
     it 'creates a config' do
-      expect(CocoapodsMangle::Config).to receive(:new).with(xcconfig_path: xcconfig_path,
-                                                            mangle_prefix: mangle_prefix,
-                                                            pods_project: pods_project,
-                                                            umbrella_pod_targets: umbrella_pod_targets,
-                                                            specs_checksum: specs_checksum).and_call_original
-      expect(subject.config).to be_a CocoapodsMangle::Config
-    end
-  end
-
-  context '.specs_checksum' do
-    let(:gem_summary) { "#{CocoapodsMangle::NAME}=#{CocoapodsMangle::VERSION}" }
-    let(:spec_A) { instance_double('Spec A', checksum: 'checksum_A') }
-    let(:spec_B) { instance_double('Spec B', checksum: 'checksum_B') }
-
-    before do
-      allow(umbrella_pod_targets.first).to receive(:specs).and_return([spec_A, spec_B])
-    end
-
-    it 'gives the checksum' do
-      summary = "#{gem_summary},checksum_A,checksum_B"
-      expect(subject.specs_checksum).to eq(Digest::SHA1.hexdigest(summary))
+      expect(CocoapodsMangle::Config).to receive(:new).with(context)
+      expect(subject.config).to eq(config)
     end
   end
 end
