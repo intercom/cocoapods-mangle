@@ -1,5 +1,5 @@
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(FLAnimatedImageView+PINRemoteImage.o):
+PINRemoteImage/libPINRemoteImage.a(FLAnimatedImageView+PINRemoteImage.o):
 00000000000004c4 t -[FLAnimatedImageView(PINRemoteImage) pin_cancelImageDownload]
 00000000000005ff t -[FLAnimatedImageView(PINRemoteImage) pin_clearImages]
 00000000000004e3 t -[FLAnimatedImageView(PINRemoteImage) pin_downloadImageOperationUUID]
@@ -38,12 +38,12 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000001ba0 D l_OBJC_PROTOCOL_$_NSObject
 0000000000001c00 D l_OBJC_PROTOCOL_$_PINRemoteImageCategory
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(NSData+ImageDetectors.o):
+PINRemoteImage/libPINRemoteImage.a(NSData+ImageDetectors.o):
 0000000000000000 t -[NSData(PINImageDetectors) pin_isGIF]
 00000000000000b0 s l_OBJC_$_CATEGORY_INSTANCE_METHODS_NSData_$_PINImageDetectors
 00000000000000d0 s l_OBJC_$_CATEGORY_NSData_$_PINImageDetectors
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINButton+PINRemoteImage.o):
+PINRemoteImage/libPINRemoteImage.a(PINButton+PINRemoteImage.o):
 0000000000000521 t -[UIButton(PINRemoteImage) pin_cancelImageDownload]
 000000000000062a t -[UIButton(PINRemoteImage) pin_clearImages]
 0000000000000540 t -[UIButton(PINRemoteImage) pin_downloadImageOperationUUID]
@@ -82,7 +82,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000001bb0 D l_OBJC_PROTOCOL_$_NSObject
 0000000000001c10 D l_OBJC_PROTOCOL_$_PINRemoteImageCategory
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINDataTaskOperation.o):
+PINRemoteImage/libPINRemoteImage.a(PINDataTaskOperation.o):
 000000000000008c t +[PINDataTaskOperation dataTaskOperationWithSessionManager:request:completionHandler:]
 0000000000000680 t -[PINDataTaskOperation .cxx_destruct]
 0000000000000437 t -[PINDataTaskOperation cancelTask]
@@ -127,7 +127,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000001410 D l_OBJC_PROTOCOL_$_NSObject
 0000000000001470 D l_OBJC_PROTOCOL_$_NSURLSessionDelegate
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINImage+DecodedImage.o):
+PINRemoteImage/libPINRemoteImage.a(PINImage+DecodedImage.o):
 0000000000000254 t +[UIImage(PINDecodedImage) pin_decodedImageWithCGImageRef:]
 0000000000000268 t +[UIImage(PINDecodedImage) pin_decodedImageWithCGImageRef:orientation:]
 0000000000000014 t +[UIImage(PINDecodedImage) pin_decodedImageWithData:]
@@ -140,9 +140,9 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000000710 s l_switch.table
 0000000000000750 s l_switch.table.21
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINImage+WebP.o):
+PINRemoteImage/libPINRemoteImage.a(PINImage+WebP.o):
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINImageView+PINRemoteImage.o):
+PINRemoteImage/libPINRemoteImage.a(PINImageView+PINRemoteImage.o):
 0000000000000521 t -[UIImageView(PINRemoteImage) pin_cancelImageDownload]
 0000000000000626 t -[UIImageView(PINRemoteImage) pin_clearImages]
 0000000000000540 t -[UIImageView(PINRemoteImage) pin_downloadImageOperationUUID]
@@ -181,7 +181,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000001ba0 D l_OBJC_PROTOCOL_$_NSObject
 0000000000001c00 D l_OBJC_PROTOCOL_$_PINRemoteImageCategory
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINProgressiveImage.o):
+PINRemoteImage/libPINRemoteImage.a(PINProgressiveImage.o):
 0000000000001931 t -[PINProgressiveImage .cxx_destruct]
 00000000000011da t -[PINProgressiveImage bytesPerSecond]
 000000000000096f t -[PINProgressiveImage currentImageBlurred:maxProgressiveRenderSize:renderedImageQuality:]
@@ -241,13 +241,13 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 00000000000029b0 s l_OBJC_CLASS_RO_$_PINProgressiveImage
 0000000000002380 s l_OBJC_METACLASS_RO_$_PINProgressiveImage
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImage-dummy.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImage-dummy.o):
 00000000000000d8 S _OBJC_CLASS_$_PodsDummy_PINRemoteImage
 00000000000000b0 S _OBJC_METACLASS_$_PodsDummy_PINRemoteImage
 0000000000000068 s l_OBJC_CLASS_RO_$_PodsDummy_PINRemoteImage
 0000000000000020 s l_OBJC_METACLASS_RO_$_PodsDummy_PINRemoteImage
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImageCallbacks.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImageCallbacks.o):
 00000000000000ca t -[PINRemoteImageCallbacks .cxx_destruct]
 000000000000004b t -[PINRemoteImageCallbacks completionBlock]
 0000000000000082 t -[PINRemoteImageCallbacks progressDownloadBlock]
@@ -269,7 +269,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000000450 s l_OBJC_CLASS_RO_$_PINRemoteImageCallbacks
 0000000000000258 s l_OBJC_METACLASS_RO_$_PINRemoteImageCallbacks
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImageCategoryManager.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImageCategoryManager.o):
 000000000000081c t +[PINRemoteImageCategoryManager cancelImageDownloadOnView:]
 00000000000006fd t +[PINRemoteImageCategoryManager downloadImageOperationUUIDOnView:]
 0000000000000711 t +[PINRemoteImageCategoryManager setDownloadImageOperationUUID:onView:]
@@ -320,7 +320,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000002040 s l_OBJC_CLASS_RO_$_PINRemoteImageCategoryManager
 0000000000001ff8 s l_OBJC_METACLASS_RO_$_PINRemoteImageCategoryManager
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImageDownloadTask.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImageDownloadTask.o):
 000000000000096d t -[PINRemoteImageDownloadTask .cxx_destruct]
 00000000000001ae t -[PINRemoteImageDownloadTask callProgressDownloadWithQueue:completedBytes:totalBytes:]
 00000000000003ba t -[PINRemoteImageDownloadTask callProgressImageWithQueue:withImage:renderedImageQuality:]
@@ -372,7 +372,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000001338 s l_OBJC_CLASS_RO_$_PINRemoteImageDownloadTask
 0000000000001048 s l_OBJC_METACLASS_RO_$_PINRemoteImageDownloadTask
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImageManager.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImageManager.o):
 000000000000013e t +[PINRemoteImageManager setSharedImageManagerWithConfiguration:]
 000000000000007e t +[PINRemoteImageManager sharedImageManager]
 000000000000002c t +[PINRemoteImageManager supportsQOS]
@@ -700,7 +700,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 000000000000d740 D l_OBJC_PROTOCOL_$_PINURLSessionManagerDelegate
 000000000000d7d0 s l_switch.table
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImageManagerResult.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImageManagerResult.o):
 0000000000000000 t +[PINRemoteImageManagerResult imageResultWithImage:animatedImage:requestLength:error:resultType:UUID:]
 00000000000000bb t +[PINRemoteImageManagerResult imageResultWithImage:animatedImage:requestLength:error:resultType:UUID:renderedImageQuality:]
 00000000000007a6 t -[PINRemoteImageManagerResult .cxx_destruct]
@@ -729,7 +729,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 00000000000010f0 s l_OBJC_CLASS_RO_$_PINRemoteImageManagerResult
 0000000000000e50 s l_OBJC_METACLASS_RO_$_PINRemoteImageManagerResult
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImageProcessorTask.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImageProcessorTask.o):
 0000000000000121 t -[PINRemoteImageProcessorTask .cxx_destruct]
 0000000000000000 t -[PINRemoteImageProcessorTask cancelWithUUID:manager:]
 0000000000000110 t -[PINRemoteImageProcessorTask downloadTaskUUID]
@@ -743,7 +743,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000000338 s l_OBJC_CLASS_RO_$_PINRemoteImageProcessorTask
 0000000000000248 s l_OBJC_METACLASS_RO_$_PINRemoteImageProcessorTask
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteImageTask.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteImageTask.o):
 000000000000087c t -[PINRemoteImageTask .cxx_destruct]
 0000000000000134 t -[PINRemoteImageTask addCallbacksWithCompletionBlock:progressImageBlock:progressDownloadBlock:withUUID:]
 00000000000002c5 t -[PINRemoteImageTask callCompletionsWithQueue:remove:withImage:animatedImage:cached:error:]
@@ -772,7 +772,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000000ed0 s l_OBJC_CLASS_RO_$_PINRemoteImageTask
 0000000000000d50 s l_OBJC_METACLASS_RO_$_PINRemoteImageTask
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINRemoteLock.o):
+PINRemoteImage/libPINRemoteImage.a(PINRemoteLock.o):
 00000000000000be t -[PINRemoteLock dealloc]
 00000000000000aa t -[PINRemoteLock initWithName:]
 0000000000000014 t -[PINRemoteLock initWithName:lockType:]
@@ -788,7 +788,7 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 0000000000000370 s l_OBJC_CLASS_RO_$_PINRemoteLock
 0000000000000250 s l_OBJC_METACLASS_RO_$_PINRemoteLock
 
-DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteImage.a(PINURLSessionManager.o):
+PINRemoteImage/libPINRemoteImage.a(PINURLSessionManager.o):
 0000000000001251 t -[PINURLSessionManager .cxx_destruct]
 0000000000000979 t -[PINURLSessionManager URLSession:dataTask:didReceiveData:]
 000000000000058a t -[PINURLSessionManager URLSession:didReceiveChallenge:completionHandler:]
@@ -858,3 +858,283 @@ DerivedData/Build/Products/Release-iphonesimulator/PINRemoteImage/libPINRemoteIm
 00000000000030c0 D l_OBJC_PROTOCOL_$_NSURLSessionDataDelegate
 0000000000003000 D l_OBJC_PROTOCOL_$_NSURLSessionDelegate
 0000000000003060 D l_OBJC_PROTOCOL_$_NSURLSessionTaskDelegate
+
+FLAnimatedImage/libFLAnimatedImage.a(FLAnimatedImage-dummy.o):
+00000000000000d8 S _OBJC_CLASS_$_PodsDummy_FLAnimatedImage
+00000000000000b0 S _OBJC_METACLASS_$_PodsDummy_FLAnimatedImage
+0000000000000068 s l_OBJC_CLASS_RO_$_PodsDummy_FLAnimatedImage
+0000000000000020 s l_OBJC_METACLASS_RO_$_PodsDummy_FLAnimatedImage
+
+FLAnimatedImage/libFLAnimatedImage.a(FLAnimatedImage.o):
+0000000000001605 t +[FLAnimatedImage animatedImageWithGIFData:]
+0000000000000137 t +[FLAnimatedImage initialize]
+0000000000002aee t +[FLAnimatedImage predrawnImageFromImage:]
+0000000000001fe1 t +[FLAnimatedImage sizeForImage:]
+00000000000033b9 t +[FLAnimatedImage(Logging) logStringFromBlock:withLevel:]
+0000000000003386 t +[FLAnimatedImage(Logging) setLogBlock:logLevel:]
+000000000000341b t +[FLWeakProxy weakProxyForObject:]
+00000000000032de t -[FLAnimatedImage .cxx_destruct]
+00000000000019cd t -[FLAnimatedImage addFrameIndexesToCache:]
+0000000000003278 t -[FLAnimatedImage allFramesIndexSet]
+0000000000003256 t -[FLAnimatedImage cachedFrameIndexes]
+0000000000003245 t -[FLAnimatedImage cachedFramesForIndexes]
+00000000000031cf t -[FLAnimatedImage data]
+0000000000001666 t -[FLAnimatedImage dealloc]
+000000000000319c t -[FLAnimatedImage delayTimesForIndexes]
+0000000000003075 t -[FLAnimatedImage description]
+0000000000002872 t -[FLAnimatedImage didReceiveMemoryWarning:]
+0000000000000000 t -[FLAnimatedImage frameCacheSizeCurrent]
+0000000000003201 t -[FLAnimatedImage frameCacheSizeMaxInternal]
+00000000000031be t -[FLAnimatedImage frameCacheSizeMax]
+00000000000031e0 t -[FLAnimatedImage frameCacheSizeOptimal]
+00000000000031ad t -[FLAnimatedImage frameCount]
+000000000000220f t -[FLAnimatedImage frameIndexesToCache]
+000000000000260c t -[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]
+000000000000215b t -[FLAnimatedImage imageAtIndex:]
+00000000000016d0 t -[FLAnimatedImage imageLazilyCachedAtIndex:]
+00000000000032bc t -[FLAnimatedImage imageSource]
+0000000000000340 t -[FLAnimatedImage initWithAnimatedGIFData:]
+000000000000035a t -[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]
+00000000000002c6 t -[FLAnimatedImage init]
+00000000000031f1 t -[FLAnimatedImage isPredrawingEnabled]
+000000000000318b t -[FLAnimatedImage loopCount]
+0000000000003289 t -[FLAnimatedImage memoryWarningCount]
+0000000000003234 t -[FLAnimatedImage posterImageFrameIndex]
+0000000000003162 t -[FLAnimatedImage posterImage]
+00000000000023af t -[FLAnimatedImage purgeFrameCacheIfNeeded]
+0000000000003212 t -[FLAnimatedImage requestedFrameIndex]
+0000000000003267 t -[FLAnimatedImage requestedFrameIndexes]
+000000000000276a t -[FLAnimatedImage resetFrameCacheSizeMaxInternal]
+00000000000032ab t -[FLAnimatedImage serialQueue]
+0000000000000081 t -[FLAnimatedImage setFrameCacheSizeMax:]
+00000000000000dc t -[FLAnimatedImage setFrameCacheSizeMaxInternal:]
+000000000000329a t -[FLAnimatedImage setMemoryWarningCount:]
+0000000000003223 t -[FLAnimatedImage setRequestedFrameIndex:]
+0000000000003173 t -[FLAnimatedImage size]
+00000000000032cd t -[FLAnimatedImage weakProxy]
+0000000000003517 t -[FLWeakProxy .cxx_destruct]
+000000000000349e t -[FLWeakProxy forwardInvocation:]
+0000000000003485 t -[FLWeakProxy forwardingTargetForSelector:]
+00000000000034ca t -[FLWeakProxy methodSignatureForSelector:]
+0000000000003503 t -[FLWeakProxy setTarget:]
+00000000000034ea t -[FLWeakProxy target]
+0000000000003528 s GCC_except_table4
+000000000000359c s GCC_except_table41
+00000000000035c8 s GCC_except_table43
+0000000000003570 s GCC_except_table8
+00000000000042f8 S _OBJC_CLASS_$_FLAnimatedImage
+0000000000004320 S _OBJC_CLASS_$_FLWeakProxy
+00000000000042c8 S _OBJC_IVAR_$_FLAnimatedImage._allFramesIndexSet
+0000000000004278 S _OBJC_IVAR_$_FLAnimatedImage._cachedFrameIndexes
+0000000000004270 S _OBJC_IVAR_$_FLAnimatedImage._cachedFramesForIndexes
+0000000000004260 S _OBJC_IVAR_$_FLAnimatedImage._data
+00000000000042b0 S _OBJC_IVAR_$_FLAnimatedImage._delayTimesForIndexes
+0000000000004250 S _OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeMax
+0000000000004258 S _OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeMaxInternal
+00000000000042c0 S _OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeOptimal
+00000000000042b8 S _OBJC_IVAR_$_FLAnimatedImage._frameCount
+0000000000004288 S _OBJC_IVAR_$_FLAnimatedImage._imageSource
+0000000000004290 S _OBJC_IVAR_$_FLAnimatedImage._loopCount
+00000000000042e8 S _OBJC_IVAR_$_FLAnimatedImage._memoryWarningCount
+0000000000004298 S _OBJC_IVAR_$_FLAnimatedImage._posterImage
+00000000000042a8 S _OBJC_IVAR_$_FLAnimatedImage._posterImageFrameIndex
+0000000000004268 S _OBJC_IVAR_$_FLAnimatedImage._predrawingEnabled
+00000000000042e0 S _OBJC_IVAR_$_FLAnimatedImage._requestedFrameIndex
+0000000000004280 S _OBJC_IVAR_$_FLAnimatedImage._requestedFrameIndexes
+00000000000042d8 S _OBJC_IVAR_$_FLAnimatedImage._serialQueue
+00000000000042a0 S _OBJC_IVAR_$_FLAnimatedImage._size
+00000000000042d0 S _OBJC_IVAR_$_FLAnimatedImage._weakProxy
+00000000000042f0 S _OBJC_IVAR_$_FLWeakProxy._target
+0000000000004348 S _OBJC_METACLASS_$_FLAnimatedImage
+0000000000004370 S _OBJC_METACLASS_$_FLWeakProxy
+000000000000031e t ___23-[FLAnimatedImage init]_block_invoke
+00000000000001ff t ___29+[FLAnimatedImage initialize]_block_invoke
+0000000000002114 t ___32+[FLAnimatedImage sizeForImage:]_block_invoke
+000000000000238d t ___38-[FLAnimatedImage frameIndexesToCache]_block_invoke
+0000000000002f1d t ___42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke
+0000000000002f64 t ___42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke.268
+0000000000002fc8 t ___42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke.280
+0000000000001be4 t ___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke
+0000000000001c06 t ___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_2
+0000000000001cd3 t ___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_3
+0000000000001df5 t ___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_4
+00000000000024df t ___42-[FLAnimatedImage purgeFrameCacheIfNeeded]_block_invoke
+0000000000002a5b t ___43-[FLAnimatedImage didReceiveMemoryWarning:]_block_invoke
+0000000000001956 t ___44-[FLAnimatedImage imageLazilyCachedAtIndex:]_block_invoke
+0000000000002801 t ___49-[FLAnimatedImage resetFrameCacheSizeMaxInternal]_block_invoke
+00000000000026f9 t ___56-[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]_block_invoke
+00000000000012c5 t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke
+00000000000013f0 t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.100
+000000000000146f t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.112
+00000000000014f4 t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.120
+0000000000001577 t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.132
+00000000000015be t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.138
+000000000000132e t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.61
+0000000000001379 t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.92
+00000000000012e7 t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2
+0000000000001521 t ___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2.124
+0000000000004fa8 s ___block_descriptor_tmp
+00000000000050f8 s ___block_descriptor_tmp.105
+0000000000005128 s ___block_descriptor_tmp.117
+0000000000005158 s ___block_descriptor_tmp.123
+0000000000005178 s ___block_descriptor_tmp.129
+00000000000051a8 s ___block_descriptor_tmp.137
+00000000000051d8 s ___block_descriptor_tmp.143
+0000000000005208 s ___block_descriptor_tmp.163
+0000000000005238 s ___block_descriptor_tmp.182
+0000000000005278 s ___block_descriptor_tmp.194
+00000000000052a8 s ___block_descriptor_tmp.198
+00000000000052d8 s ___block_descriptor_tmp.203
+0000000000005308 s ___block_descriptor_tmp.210
+0000000000005338 s ___block_descriptor_tmp.223
+0000000000005378 s ___block_descriptor_tmp.229
+00000000000053a8 s ___block_descriptor_tmp.238
+00000000000053d8 s ___block_descriptor_tmp.249
+0000000000005408 s ___block_descriptor_tmp.262
+0000000000005438 s ___block_descriptor_tmp.267
+0000000000005468 s ___block_descriptor_tmp.273
+0000000000005498 s ___block_descriptor_tmp.285
+0000000000004fe8 s ___block_descriptor_tmp.34
+0000000000005028 s ___block_descriptor_tmp.44
+0000000000005068 s ___block_descriptor_tmp.60
+0000000000005098 s ___block_descriptor_tmp.66
+00000000000050c8 s ___block_descriptor_tmp.97
+0000000000004fc8 s ___block_literal_global
+0000000000005258 s ___block_literal_global.183
+0000000000005358 s ___block_literal_global.224
+0000000000005008 s ___block_literal_global.35
+0000000000005048 s ___block_literal_global.45
+0000000000001310 t ___copy_helper_block_
+0000000000001425 t ___copy_helper_block_.103
+00000000000014d6 t ___copy_helper_block_.115
+0000000000001559 t ___copy_helper_block_.127
+00000000000015a0 t ___copy_helper_block_.135
+00000000000015e7 t ___copy_helper_block_.141
+00000000000019af t ___copy_helper_block_.161
+0000000000001f31 t ___copy_helper_block_.191
+0000000000001f79 t ___copy_helper_block_.195
+0000000000001f99 t ___copy_helper_block_.201
+000000000000213d t ___copy_helper_block_.208
+00000000000025ee t ___copy_helper_block_.227
+000000000000274c t ___copy_helper_block_.236
+0000000000002854 t ___copy_helper_block_.247
+0000000000002ad0 t ___copy_helper_block_.260
+0000000000002f46 t ___copy_helper_block_.265
+0000000000002faa t ___copy_helper_block_.271
+0000000000003057 t ___copy_helper_block_.283
+000000000000135b t ___copy_helper_block_.64
+00000000000013a6 t ___copy_helper_block_.95
+000000000000131f t ___destroy_helper_block_
+000000000000144a t ___destroy_helper_block_.104
+00000000000014e5 t ___destroy_helper_block_.116
+0000000000001568 t ___destroy_helper_block_.128
+00000000000015af t ___destroy_helper_block_.136
+00000000000015f6 t ___destroy_helper_block_.142
+00000000000019be t ___destroy_helper_block_.162
+0000000000001f57 t ___destroy_helper_block_.192
+0000000000001f8b t ___destroy_helper_block_.196
+0000000000001fbf t ___destroy_helper_block_.202
+000000000000214c t ___destroy_helper_block_.209
+00000000000025fd t ___destroy_helper_block_.228
+000000000000275b t ___destroy_helper_block_.237
+0000000000002863 t ___destroy_helper_block_.248
+0000000000002adf t ___destroy_helper_block_.261
+0000000000002f55 t ___destroy_helper_block_.266
+0000000000002fb9 t ___destroy_helper_block_.272
+0000000000003066 t ___destroy_helper_block_.284
+000000000000136a t ___destroy_helper_block_.65
+00000000000013cb t ___destroy_helper_block_.96
+0000000000008648 b __logBlock
+0000000000008650 b __logLevel
+0000000000008640 b _allAnimatedImagesWeak
+0000000000003670 S _kFLAnimatedImageDelayTimeIntervalMinimum
+00000000000061e0 s l_OBJC_$_CATEGORY_CLASS_METHODS_FLAnimatedImage_$_Logging
+0000000000006218 s l_OBJC_$_CATEGORY_FLAnimatedImage_$_Logging
+0000000000005958 s l_OBJC_$_CLASS_METHODS_FLAnimatedImage
+0000000000006258 s l_OBJC_$_CLASS_METHODS_FLWeakProxy
+0000000000005a08 s l_OBJC_$_INSTANCE_METHODS_FLAnimatedImage
+00000000000062c0 s l_OBJC_$_INSTANCE_METHODS_FLWeakProxy
+0000000000005db8 s l_OBJC_$_INSTANCE_VARIABLES_FLAnimatedImage
+0000000000006358 s l_OBJC_$_INSTANCE_VARIABLES_FLWeakProxy
+0000000000006040 s l_OBJC_$_PROP_LIST_FLAnimatedImage
+0000000000006380 s l_OBJC_$_PROP_LIST_FLWeakProxy
+0000000000006198 s l_OBJC_CLASS_RO_$_FLAnimatedImage
+0000000000006398 s l_OBJC_CLASS_RO_$_FLWeakProxy
+00000000000059c0 s l_OBJC_METACLASS_RO_$_FLAnimatedImage
+0000000000006278 s l_OBJC_METACLASS_RO_$_FLWeakProxy
+0000000000003680 s l_switch.table
+
+FLAnimatedImage/libFLAnimatedImage.a(FLAnimatedImageView.o):
+00000000000016cc t +[FLAnimatedImageView defaultRunLoopMode]
+00000000000018f6 t -[FLAnimatedImageView .cxx_destruct]
+000000000000186d t -[FLAnimatedImageView accumulator]
+00000000000017cf t -[FLAnimatedImageView animatedImage]
+0000000000000179 t -[FLAnimatedImageView commonInit]
+0000000000001829 t -[FLAnimatedImageView currentFrameIndex]
+0000000000001804 t -[FLAnimatedImageView currentFrame]
+0000000000000392 t -[FLAnimatedImageView dealloc]
+00000000000003db t -[FLAnimatedImageView didMoveToSuperview]
+000000000000044e t -[FLAnimatedImageView didMoveToWindow]
+0000000000000f84 t -[FLAnimatedImageView displayDidRefresh:]
+0000000000001732 t -[FLAnimatedImageView displayLayer:]
+0000000000001891 t -[FLAnimatedImageView displayLink]
+000000000000073f t -[FLAnimatedImageView frameDelayGreatestCommonDivisor]
+000000000000065f t -[FLAnimatedImageView image]
+000000000000012d t -[FLAnimatedImageView initWithCoder:]
+00000000000000be t -[FLAnimatedImageView initWithFrame:]
+0000000000000000 t -[FLAnimatedImageView initWithImage:]
+000000000000004c t -[FLAnimatedImageView initWithImage:highlightedImage:]
+00000000000005aa t -[FLAnimatedImageView intrinsicContentSize]
+0000000000000d66 t -[FLAnimatedImageView isAnimating]
+00000000000017e0 t -[FLAnimatedImageView loopCompletionBlock]
+000000000000184b t -[FLAnimatedImageView loopCountdown]
+00000000000018d6 t -[FLAnimatedImageView needsDisplayWhenImageBecomesAvailable]
+00000000000017bc t -[FLAnimatedImageView runLoopMode]
+000000000000187f t -[FLAnimatedImageView setAccumulator:]
+00000000000004c1 t -[FLAnimatedImageView setAlpha:]
+00000000000001d2 t -[FLAnimatedImageView setAnimatedImage:]
+0000000000001815 t -[FLAnimatedImageView setCurrentFrame:]
+000000000000183a t -[FLAnimatedImageView setCurrentFrameIndex:]
+00000000000018a2 t -[FLAnimatedImageView setDisplayLink:]
+0000000000000534 t -[FLAnimatedImageView setHidden:]
+0000000000000e33 t -[FLAnimatedImageView setHighlighted:]
+00000000000006db t -[FLAnimatedImageView setImage:]
+00000000000017f3 t -[FLAnimatedImageView setLoopCompletionBlock:]
+000000000000185c t -[FLAnimatedImageView setLoopCountdown:]
+00000000000018e6 t -[FLAnimatedImageView setNeedsDisplayWhenImageBecomesAvailable:]
+0000000000000bad t -[FLAnimatedImageView setRunLoopMode:]
+00000000000018c6 t -[FLAnimatedImageView setShouldAnimate:]
+00000000000018b6 t -[FLAnimatedImageView shouldAnimate]
+0000000000000997 t -[FLAnimatedImageView startAnimating]
+0000000000000cc3 t -[FLAnimatedImageView stopAnimating]
+0000000000000e99 t -[FLAnimatedImageView updateShouldAnimate]
+00000000000019a0 S _OBJC_CLASS_$_FLAnimatedImageView
+0000000000002298 S _OBJC_IVAR_$_FLAnimatedImageView._accumulator
+0000000000002260 S _OBJC_IVAR_$_FLAnimatedImageView._animatedImage
+0000000000002280 S _OBJC_IVAR_$_FLAnimatedImageView._currentFrame
+0000000000002288 S _OBJC_IVAR_$_FLAnimatedImageView._currentFrameIndex
+0000000000002268 S _OBJC_IVAR_$_FLAnimatedImageView._displayLink
+0000000000002278 S _OBJC_IVAR_$_FLAnimatedImageView._loopCompletionBlock
+0000000000002290 S _OBJC_IVAR_$_FLAnimatedImageView._loopCountdown
+00000000000022a8 S _OBJC_IVAR_$_FLAnimatedImageView._needsDisplayWhenImageBecomesAvailable
+0000000000002270 S _OBJC_IVAR_$_FLAnimatedImageView._runLoopMode
+00000000000022a0 S _OBJC_IVAR_$_FLAnimatedImageView._shouldAnimate
+00000000000019c8 S _OBJC_METACLASS_$_FLAnimatedImageView
+000000000000152b t ___41-[FLAnimatedImageView displayDidRefresh:]_block_invoke
+0000000000001572 t ___41-[FLAnimatedImageView displayDidRefresh:]_block_invoke.140
+000000000000161f t ___41-[FLAnimatedImageView displayDidRefresh:]_block_invoke.162
+00000000000025b8 s ___block_descriptor_tmp
+00000000000025e8 s ___block_descriptor_tmp.145
+0000000000002618 s ___block_descriptor_tmp.167
+0000000000001554 t ___copy_helper_block_
+0000000000001601 t ___copy_helper_block_.143
+00000000000016ae t ___copy_helper_block_.165
+0000000000001563 t ___destroy_helper_block_
+0000000000001610 t ___destroy_helper_block_.144
+00000000000016bd t ___destroy_helper_block_.166
+0000000000002768 s l_OBJC_$_CLASS_METHODS_FLAnimatedImageView
+00000000000027d0 s l_OBJC_$_INSTANCE_METHODS_FLAnimatedImageView
+0000000000002bc8 s l_OBJC_$_INSTANCE_VARIABLES_FLAnimatedImageView
+0000000000002d10 s l_OBJC_$_PROP_LIST_FLAnimatedImageView
+0000000000002db8 s l_OBJC_CLASS_RO_$_FLAnimatedImageView
+0000000000002788 s l_OBJC_METACLASS_RO_$_FLAnimatedImageView

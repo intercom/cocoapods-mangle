@@ -31,6 +31,9 @@ describe CocoapodsMangle::Defines do
         PINRemoteImageTask
         PINRemoteLock
         PINURLSessionManager
+        FLAnimatedImage
+        FLWeakProxy
+        FLAnimatedImageView
       ]
     end
 
@@ -50,6 +53,7 @@ describe CocoapodsMangle::Defines do
         pin_UIImageOrientationFromImageSource
         dataTaskPriorityWithImageManagerPriority
         operationPriorityWithImageManagerPriority
+        kFLAnimatedImageDelayTimeIntervalMinimum
       ]
     end
 
@@ -76,6 +80,8 @@ describe CocoapodsMangle::Defines do
         pin_decodedImageWithCGImageRef
         pin_decodedImageWithData
         pin_addOperationWithQueuePriority
+        logStringFromBlock
+        setLogBlock
       ]
     end
 
