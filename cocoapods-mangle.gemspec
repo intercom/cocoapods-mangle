@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
                      'one copy of a dependency to exist without errors. This ' \
                      'plugin mangles your dependecies to make this possible'
   spec.files            = Dir['lib/**/*.rb']
-  spec.test_files       = Dir['spec/unit/**/*.rb']
+  spec.test_files       = Dir['spec/**/*.rb']
   spec.extra_rdoc_files = ['README.md', 'CHANGELOG.md']
   spec.require_paths    = ['lib']
   spec.add_dependency 'cocoapods', '~> 1.0'
