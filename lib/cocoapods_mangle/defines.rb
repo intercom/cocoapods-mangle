@@ -9,7 +9,7 @@ module CocoapodsMangle
     def self.mangling_defines(prefix, binaries_to_mangle)
       classes = classes(binaries_to_mangle)
       constants = constants(binaries_to_mangle)
-      category_selectors = category_selectors(binaries_to_mangle)
+      category_selectors = category_selectors(binaries_to_mangle, classes)
 
       defines = prefix_symbols(prefix, classes)
       defines += prefix_symbols(prefix, constants)
@@ -18,7 +18,7 @@ module CocoapodsMangle
     end
 
     # Get the classes defined in a list of binaries
-    # @param  [Array<String>] binaries_to_mangle
+    # @param  [Array<String>] binaries
     #         The binaries containing symbols to be mangled
     # @return [Array<String>] The classes defined in the binaries
     def self.classes(binaries)
@@ -31,7 +31,7 @@ module CocoapodsMangle
     end
 
     # Get the constants defined in a list of binaries
-    # @param  [Array<String>] binaries_to_mangle
+    # @param  [Array<String>] binaries
     #         The binaries containing symbols to be mangled
     # @return [Array<String>] The constants defined in the binaries
     def self.constants(binaries)
@@ -49,12 +49,19 @@ module CocoapodsMangle
     end
 
     # Get the category selectors defined in a list of binaries
-    # @param  [Array<String>] binaries_to_mangle
+    # @note   Selectors on classes which are being mangled will not be mangled
+    # @param  [Array<String>] binaries
     #         The binaries containing symbols to be mangled
+    # @param  [Array<String>] classes
+    #         The classes which are being mangled
     # @return [Array<String>] The category selectors defined in the binaries
-    def self.category_selectors(binaries)
+    def self.category_selectors(binaries, classes)
       symbols = run_nm(binaries, '-U')
       selectors = symbols.select { |selector| selector[/ t [-|+]\[[^ ]*\([^ ]*\) [^ ]*\]/] }
+      selectors = selectors.reject do |selector|
+        class_name = selector[/[-|+]\[(.*?)\(/m, 1]
+        classes.include? class_name
+      end
       selectors = selectors.map { |selector| selector[/[^ ]*\]\z/][0...-1] }
       selectors = selectors.map { |selector| selector.split(':').first }
       selectors.uniq

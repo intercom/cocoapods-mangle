@@ -31,6 +31,9 @@ describe CocoapodsMangle::Defines do
         PINRemoteImageTask
         PINRemoteLock
         PINURLSessionManager
+        FLAnimatedImage
+        FLWeakProxy
+        FLAnimatedImageView
       ]
     end
 
@@ -50,6 +53,7 @@ describe CocoapodsMangle::Defines do
         pin_UIImageOrientationFromImageSource
         dataTaskPriorityWithImageManagerPriority
         operationPriorityWithImageManagerPriority
+        kFLAnimatedImageDelayTimeIntervalMinimum
       ]
     end
 
@@ -78,10 +82,22 @@ describe CocoapodsMangle::Defines do
         pin_addOperationWithQueuePriority
       ]
     end
+    let(:mangled_class_non_property_selectors) do
+      %w[
+        logStringFromBlock
+        setLogBlock
+      ]
+    end
 
     it 'should mangle the category selectors' do
       expected_non_property_selectors.each do |sel|
         expect(defines).to include("#{sel}=Prefix_#{sel}")
+      end
+    end
+
+    it 'should not mangle the category selectors on mangled classes' do
+      mangled_class_non_property_selectors.each do |sel|
+        expect(defines).not_to include("#{sel}=Prefix_#{sel}")
       end
     end
 
