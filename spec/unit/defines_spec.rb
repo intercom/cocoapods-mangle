@@ -80,6 +80,10 @@ describe CocoapodsMangle::Defines do
         pin_decodedImageWithCGImageRef
         pin_decodedImageWithData
         pin_addOperationWithQueuePriority
+      ]
+    end
+    let(:mangled_class_non_property_selectors) do
+      %w[
         logStringFromBlock
         setLogBlock
       ]
@@ -88,6 +92,12 @@ describe CocoapodsMangle::Defines do
     it 'should mangle the category selectors' do
       expected_non_property_selectors.each do |sel|
         expect(defines).to include("#{sel}=Prefix_#{sel}")
+      end
+    end
+
+    it 'should not mangle the category selectors on mangled classes' do
+      mangled_class_non_property_selectors.each do |sel|
+        expect(defines).not_to include("#{sel}=Prefix_#{sel}")
       end
     end
 
