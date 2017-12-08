@@ -1,5 +1,6 @@
 ![Intercom](Intercom_logo-github.png)
 
+[![Apache License](http://img.shields.io/badge/license-APACHE2-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![CircleCI](https://circleci.com/gh/intercom/cocoapods-mangle.svg?style=svg)](https://circleci.com/gh/intercom/cocoapods-mangle)
 
 # cocoapods-mangle
