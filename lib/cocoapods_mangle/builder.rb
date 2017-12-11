@@ -5,7 +5,8 @@ module CocoapodsMangle
   #
   # This is useful for building pods for mangling purposes
   class Builder
-    BUILT_PRODUCTS_DIR = 'build/Release-iphonesimulator'
+    BUILD_DIR = 'build'
+    BUILT_PRODUCTS_DIR = "#{BUILD_DIR}/Release-iphonesimulator"
 
     # @param    [String] pods_project_path
     #           path to the pods project to build.
@@ -19,7 +20,7 @@ module CocoapodsMangle
 
     # Build the pods project
     def build!
-      FileUtils.remove_dir(BUILT_PRODUCTS_DIR, true)
+      FileUtils.remove_dir(BUILD_DIR, true)
       @pod_target_labels.each { |target| build_target(target) }
     end
 
