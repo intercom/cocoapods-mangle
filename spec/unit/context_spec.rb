@@ -1,16 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require 'cocoapods_mangle/context'
 
-RSpec.shared_examples 'initializing context' do
-  it 'sets the correct values' do
-    context = CocoapodsMangle::Context.new(installer_context, options)
-    expect(context.xcconfig_path).to eq(xcconfig_path)
-    expect(context.umbrella_pod_targets).to eq(umbrella_pod_targets)
-    expect(context.pods_project).to eq(pods_project)
-    expect(context.mangle_prefix).to eq(mangle_prefix)
-  end
-end
-
 describe CocoapodsMangle::Context do
   let(:umbrella_targets) do
     [
@@ -19,57 +9,105 @@ describe CocoapodsMangle::Context do
       instance_double('umbrella target C', cocoapods_target_label: 'Pods-C', user_targets: [instance_double('target C', name: 'C')])
     ]
   end
-  let(:installer_context) { instance_double('installer', pods_project: double('pods project'), umbrella_targets: umbrella_targets) }
+  let(:installer_context) { instance_double('installer context', umbrella_targets: umbrella_targets) }
+  let(:options) { {} }
+  let(:subject) { CocoapodsMangle::Context.new(installer_context, options) }
 
-  before do
-    allow(installer_context).to receive_message_chain(:sandbox, :root, :parent).and_return( Pathname.new('/parent') )
-    allow(installer_context).to receive_message_chain(:sandbox, :target_support_files_root).and_return( Pathname.new('/support_files') )
-    allow(umbrella_targets.first).to receive_message_chain(:user_project, :path).and_return('path/to/Project.xcodeproj')
+  context '.xcconfig_path' do
+    before do
+      allow(installer_context).to receive_message_chain(:sandbox, :target_support_files_root).and_return( Pathname.new('/support_files') )
+      allow(installer_context).to receive_message_chain(:sandbox, :root, :parent).and_return( Pathname.new('/parent') )
+    end
+
+    context 'No options' do
+      it 'gives the default xcconfig path' do
+        expect(subject.xcconfig_path).to eq("/support_files/#{CocoapodsMangle::NAME}.xcconfig")
+      end
+    end
+
+    context 'User provided xcconfig path' do
+      let(:options) { { xcconfig_path: 'path/to/mangle.xcconfig' } }
+      it 'gives the user xcconfig path, relative to the project' do
+        expect(subject.xcconfig_path).to eq("/parent/#{options[:xcconfig_path]}")
+      end
+    end
   end
 
-  context 'Initialization' do
-    context 'all user defined options' do
-      let(:options) { { targets: ['A', 'B'], xcconfig_path: 'path/to/mangle.xcconfig', mangle_prefix: 'prefix_' } }
-      let(:xcconfig_path) { "/parent/#{options[:xcconfig_path]}" }
-      let(:umbrella_pod_targets) { umbrella_targets[0..1] }
-      let(:pods_project) { installer_context.pods_project }
-      let(:mangle_prefix) { options[:mangle_prefix] }
+  context '.mangle_prefix' do
+    context 'No options' do
+      before do
+        allow(umbrella_targets.first).to receive_message_chain(:user_project, :path).and_return('path/to/Project.xcodeproj')
+      end
 
-      include_examples 'initializing context'
+      it 'gives the project name as the prefix' do
+        expect(subject.mangle_prefix).to eq('Project_')
+      end
     end
 
-    context 'only targets defined in options' do
-      let(:options) { { targets: ['A', 'B'] } }
-      let(:xcconfig_path) { "/support_files/#{CocoapodsMangle::NAME}.xcconfig" }
-      let(:umbrella_pod_targets) { umbrella_targets[0..1] }
-      let(:pods_project) { installer_context.pods_project }
-      let(:mangle_prefix) { 'Project_' }
-
-      include_examples 'initializing context'
-    end
-
-    context 'only targets defined in options, with space in project name' do
-      let(:options) { { targets: ['A', 'B'] } }
-      let(:xcconfig_path) { "/support_files/#{CocoapodsMangle::NAME}.xcconfig" }
-      let(:umbrella_pod_targets) { umbrella_targets[0..1] }
-      let(:pods_project) { installer_context.pods_project }
-      let(:mangle_prefix) { 'Project_Name_' }
-
+    context 'No options with space in project name' do
       before do
         allow(umbrella_targets.first).to receive_message_chain(:user_project, :path).and_return('path/to/Project Name.xcodeproj')
       end
 
-      include_examples 'initializing context'
+      it 'gives the project name with underscores as the prefix' do
+        expect(subject.mangle_prefix).to eq('Project_Name_')
+      end
     end
 
-    context 'no options' do
-      let(:options) { {} }
-      let(:xcconfig_path) { "/support_files/#{CocoapodsMangle::NAME}.xcconfig" }
-      let(:umbrella_pod_targets) { umbrella_targets[0..2] }
-      let(:pods_project) { installer_context.pods_project }
-      let(:mangle_prefix) { 'Project_' }
+    context 'User provided prefix' do
+      let(:options) { { mangle_prefix: 'Prefix_' } }
 
-      include_examples 'initializing context'
+      it 'gives the user prefix' do
+        expect(subject.mangle_prefix).to eq(options[:mangle_prefix])
+      end
+    end
+  end
+
+  context '.pods_project_path' do
+    let(:pods_project) { instance_double('pods project', path: 'path/to/Pods.xcodeproj') }
+
+    before do
+      allow(installer_context).to receive(:pods_project).and_return(pods_project)
+    end
+
+    it 'gives the project path' do
+      expect(subject.pods_project_path).to eq(pods_project.path)
+    end
+  end
+
+  context '.pod_target_labels' do
+    context 'No options' do
+      it 'gives all targets' do
+        expect(subject.pod_target_labels).to eq(['Pods-A', 'Pods-B', 'Pods-C'])
+      end
+    end
+
+    context 'With targets' do
+      let(:options) { { targets: ['A', 'B'] } }
+      it 'gives only requested targets' do
+        expect(subject.pod_target_labels).to eq(['Pods-A', 'Pods-B'])
+      end
+    end
+  end
+
+  context '.pod_xcconfig_paths' do
+    let(:pods_project) { instance_double('pods project', path: 'path/to/Pods.xcodeproj') }
+    let(:pod_target) { double('target') }
+    let(:debug_build_configuration) { double('debug') }
+    let(:release_build_configuration) { double('release') }
+
+    before do
+      allow(installer_context).to receive(:pods_project).and_return(pods_project)
+      allow(pods_project).to receive(:targets).and_return([pod_target])
+      build_configurations = [debug_build_configuration, release_build_configuration]
+      allow(pod_target).to receive(:build_configurations).and_return(build_configurations)
+      build_configurations.each do |config|
+        allow(config).to receive_message_chain(:base_configuration_reference, :real_path).and_return('path/to/pod.xcconfig')
+      end
+    end
+
+    it 'gives the pod xcconfigs' do
+      expect(subject.pod_xcconfig_paths).to eq(['path/to/pod.xcconfig'])
     end
   end
 
@@ -77,7 +115,7 @@ describe CocoapodsMangle::Context do
     let(:gem_summary) { "#{CocoapodsMangle::NAME}=#{CocoapodsMangle::VERSION}" }
     let(:spec_A) { instance_double('Spec A', checksum: 'checksum_A') }
     let(:spec_B) { instance_double('Spec B', checksum: 'checksum_B') }
-    let(:subject) { CocoapodsMangle::Context.new(installer_context, targets: ['A']) }
+    let(:options) { { targets: ['A'] } }
 
     before do
       allow(umbrella_targets.first).to receive(:specs).and_return([spec_A, spec_B])

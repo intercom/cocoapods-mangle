@@ -1,4 +1,3 @@
-require 'digest'
 require 'cocoapods'
 require 'cocoapods_mangle/config'
 
