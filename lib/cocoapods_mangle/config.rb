@@ -17,7 +17,7 @@ module CocoapodsMangle
     # Update the mangling xcconfig file with new mangling defines
     def update_mangling!
       Pod::UI.message '- Updating mangling xcconfig' do
-        builder = Builder.new(@context.pods_project, @context.umbrella_pod_targets)
+        builder = Builder.new(@context.pods_project_path, @context.pod_target_labels)
         builder.build!
 
         defines = Defines.mangling_defines(@context.mangle_prefix, builder.binaries_to_mangle)
@@ -49,16 +49,8 @@ module CocoapodsMangle
 
     # Update all pod xcconfigs to use the mangling defines
     def update_pod_xcconfigs_for_mangling!
-      pod_xcconfigs = Set.new
-
-      @context.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-          pod_xcconfigs.add(config.base_configuration_reference.real_path)
-        end
-      end
-
-      Pod::UI.message "- Updating Pod xcconfig files" do
-        pod_xcconfigs.each do |pod_xcconfig_path|
+      Pod::UI.message '- Updating Pod xcconfig files' do
+        @context.pod_xcconfig_paths.each do |pod_xcconfig_path|
           Pod::UI.message "- Updating '#{File.basename(pod_xcconfig_path)}'"
           update_pod_xcconfig_for_mangling!(pod_xcconfig_path)
         end

@@ -7,20 +7,20 @@ module CocoapodsMangle
   class Builder
     BUILT_PRODUCTS_DIR = 'build/Release-iphonesimulator'
 
-    # @param    [Pod::Project] pods_project
-    #           the pods project to build.
+    # @param    [String] pods_project_path
+    #           path to the pods project to build.
     #
-    # @param    [Array<Pod::Installer::PostInstallHooksContext::UmbrellaTargetDescription>] umbrella_pod_targets
-    #           the umbrella pod targets to build.
-    def initialize(pods_project, umbrella_pod_targets)
-      @pods_project = pods_project
-      @umbrella_pod_targets = umbrella_pod_targets
+    # @param    [Array<String>] pod_target_labels
+    #           the pod targets to build.
+    def initialize(pods_project_path, pod_target_labels)
+      @pods_project_path = pods_project_path
+      @pod_target_labels = pod_target_labels
     end
 
     # Build the pods project
     def build!
       FileUtils.remove_dir(BUILT_PRODUCTS_DIR, true)
-      @umbrella_pod_targets.each { |target| build_target(target.cocoapods_target_label) }
+      @pod_target_labels.each { |target| build_target(target) }
     end
 
     # Gives the built binaries to be mangled
@@ -33,7 +33,7 @@ module CocoapodsMangle
 
     def build_target(target)
       Pod::UI.message "- Building '#{target}'"
-      output = `xcodebuild -project "#{@pods_project.path}" -target "#{target}" -configuration Release -sdk iphonesimulator build 2>&1`
+      output = `xcodebuild -project "#{@pods_project_path}" -target "#{target}" -configuration Release -sdk iphonesimulator build 2>&1`
       unless $?.success?
         raise "error: Building the Pods target '#{target}' failed.\ This is the build log:\n#{output}"
       end

@@ -2,13 +2,14 @@ require File.expand_path('../../spec_helper', __FILE__)
 require 'cocoapods_mangle/config'
 
 describe CocoapodsMangle::Config do
-  let(:context) do 
+  let(:context) do
     instance_double('Mangle context',
                     xcconfig_path: 'path/to/mangle.xcconfig',
-                    umbrella_pod_targets: [instance_double('target', cocoapods_target_label: 'Pods-A')],
-                    pods_project: double('pods project'),
+                    pod_target_labels: ['Pods-A'],
+                    pods_project_path: 'path/to/Pods.xcodeproj',
                     mangle_prefix: 'prefix_',
-                    specs_checksum: 'checksum')
+                    specs_checksum: 'checksum',
+                    pod_xcconfig_paths: ['path/to/A.xcconfig', 'path/to/B.xcconfig'])
   end
   let(:subject) do
     CocoapodsMangle::Config.new(context)
@@ -21,7 +22,7 @@ describe CocoapodsMangle::Config do
     let(:builder) { double('builder') }
 
     before do
-      allow(CocoapodsMangle::Builder).to receive(:new).with(context.pods_project, context.umbrella_pod_targets).and_return(builder)
+      allow(CocoapodsMangle::Builder).to receive(:new).with(context.pods_project_path, context.pod_target_labels).and_return(builder)
       allow(builder).to receive(:build!)
       allow(builder).to receive(:binaries_to_mangle).and_return(binaries_to_mangle)
       allow(CocoapodsMangle::Defines).to receive(:mangling_defines).with(context.mangle_prefix, binaries_to_mangle).and_return(mangling_defines)
@@ -88,21 +89,10 @@ describe CocoapodsMangle::Config do
   end
 
   context '.update_pod_xcconfigs_for_mangling!' do
-    let(:pod_target) { double('target') }
-    let(:debug_build_configuration) { double('debug') }
-    let(:release_build_configuration) { double('release') }
-
-    before do
-      allow(context.pods_project).to receive(:targets).and_return([pod_target])
-      build_configurations = [debug_build_configuration, release_build_configuration]
-      allow(pod_target).to receive(:build_configurations).and_return(build_configurations)
-      build_configurations.each do |config|
-        allow(config).to receive_message_chain(:base_configuration_reference, :real_path).and_return('pod.xcconfig')
-      end
-    end
-
     it 'updates each unique config' do
-      expect(subject).to receive(:update_pod_xcconfig_for_mangling!).with('pod.xcconfig').once
+      context.pod_xcconfig_paths.each do |pod_xcconfig|
+        expect(subject).to receive(:update_pod_xcconfig_for_mangling!).with(pod_xcconfig)
+      end
       subject.update_pod_xcconfigs_for_mangling!
     end
   end
