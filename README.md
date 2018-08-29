@@ -119,6 +119,7 @@ plugin 'cocoapods-mangle', targets: ['MyTarget'],
 - cocoapods-mangle will only work for source dependencies. Pre-compiled frameworks cannot be mangled.
 - Currently only supports iOS. It should be very straightforward to extend support to macOS, tvOS or watchOS.
 - Category mangling may cause issues if the dependency does not correctly prefix its category selectors (see http://nshipster.com/namespacing/#method-prefixes).
+- Usage of `NSClassFromString(@"MyClass")` will not work after mangling has been applied. You will need to use `NSClassFromString(@"Prefix_MyClass")` for this to work correctly.
 
 ## Related links
 
