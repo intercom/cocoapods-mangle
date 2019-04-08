@@ -38,10 +38,13 @@ module CocoapodsMangle
       all_symbols = run_nm(binaries, '-gU')
       consts = all_symbols.select { |const| const[/ S /] }
       consts = consts.reject { |const| const[/_OBJC_/] }
+      consts = consts.reject { |const| const[/__block_descriptor.*/] }
       consts = consts.map! { |const| const.gsub(/^.* _/, '') }
       consts = consts.uniq
 
       other_consts = all_symbols.select { |const| const[/ T /] }
+      other_consts = other_consts.reject { |const| const[/__copy_helper_block.*/] }
+      other_consts = other_consts.reject { |const| const[/__destroy_helper_block.*/] }
       other_consts = other_consts.map! { |const| const.gsub(/^.* _/, '') }
       other_consts = other_consts.uniq
 
