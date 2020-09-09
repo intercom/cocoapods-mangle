@@ -36,7 +36,7 @@ describe CocoapodsMangle do
   before(:each) do
     fixtures_dir = File.expand_path("#{File.dirname(__FILE__)}/../fixtures")
     FileUtils.copy_entry(File.join(fixtures_dir, 'project'), project_dir)
-    FileUtils.copy_entry(File.join(fixtures_dir, 'pod'), pod_dir)
+    FileUtils.copy_entry(File.join(fixtures_dir, 'objc-pod'), pod_dir)
     File.open(File.join(project_dir, 'Podfile'), 'w') do |podfile|
       podfile.write(podfile_contents)
     end
