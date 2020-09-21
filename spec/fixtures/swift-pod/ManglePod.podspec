@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license          = 'Apache'
   s.author           = { 'James Treanor' => 'james@intercom.io' }
   s.source           = { git: 'git@github.com:intercom/cocoapods-mangle.git' }
-  s.platform         = :ios, '8.0'
+  s.platform         = :ios, '10.0'
   s.requires_arc     = true
   s.swift_version    = '5.0'
   s.source_files     = 'Source/*.{swift}'
