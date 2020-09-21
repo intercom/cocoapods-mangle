@@ -23,6 +23,8 @@ module CocoapodsMangle
     # @return [Array<String>] The classes defined in the binaries
     def self.classes(binaries)
       all_symbols = run_nm(binaries, '-gU')
+      all_symbols = all_symbols.reject { |symbol| swift_symbol?(symbol) }
+
       class_symbols = all_symbols.select do |symbol|
         symbol[/OBJC_CLASS_\$_/]
       end
@@ -36,6 +38,8 @@ module CocoapodsMangle
     # @return [Array<String>] The constants defined in the binaries
     def self.constants(binaries)
       all_symbols = run_nm(binaries, '-gU')
+      all_symbols = all_symbols.reject { |symbol| swift_symbol?(symbol) }
+
       consts = all_symbols.select { |const| const[/ S /] }
       consts = consts.reject { |const| const[/_OBJC_/] }
       consts = consts.reject { |const| const[/__block_descriptor.*/] }
@@ -108,6 +112,31 @@ module CocoapodsMangle
 
       defines += prefix_symbols(prefix, selectors_to_prefix)
       defines
+    end
+
+    # Is symbol a Swift symbol? This is used to avoid mangling Swift.
+    # @param [String] symbol
+    #        The symbol to check
+    # @return [Boolean] true if it is a Swift symbol, false otherwise
+    def self.swift_symbol?(symbol)
+      # Swift binaries have many symbols starting with $s_ that should be excluded
+      # e.g. '0000000000000258 S _$s9ManglePod9SomeClassCMF'
+      symbol[/ _\$s/] ||
+        # Internal Swift symbols starting with __swift or ___swift such as should not be mangled
+        # e.g. '00000000000050ac S ___swift_reflection_version' 
+        symbol[/ __(_)?swift/] ||
+        # Swift symbols starting with _symbolic should be ignored
+        # e.g. '0000000000000248 S _symbolic _____ 9ManglePod9SomeClassC'
+        symbol[/ _symbolic/] ||
+        # Swift symbol references to Objective-C symbols should not be mangled
+        # e.g. '00000000000108ca S _associated conformance So26SCNetworkReachabilityFlagsVs10SetAlgebraSCSQ'
+        symbol[/associated conformance/] ||
+        # _globalinit symbols should be skipped
+        # e.g. 0000000000000000 T _globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0
+        symbol[/ _globalinit/] ||
+        # Swift classes inheriting from Objective-C classes should not be mangled
+        # e.g. '0000000000000290 S _OBJC_CLASS_$__TtC9ManglePod19SomeFoundationClass'
+        symbol[/_OBJC_CLASS_\$__/]
     end
 
     def self.run_nm(binaries, flags)
