@@ -20,6 +20,7 @@ describe CocoapodsMangle::Defines do
       %w[
         PINDataTaskOperation
         PINProgressiveImage
+        PodsDummy_ManglePod
         PodsDummy_PINRemoteImage
         PINRemoteImageCallbacks
         PINRemoteImageCategoryManager
