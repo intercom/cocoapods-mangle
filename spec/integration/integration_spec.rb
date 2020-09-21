@@ -1,7 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require 'tmpdir'
 require 'cocoapods_mangle/config'
-require 'pry'
 
 def defines_from_xcconfig(xcconfig_path)
   xcconfig = Xcodeproj::Config.new(File.new(xcconfig_path)).to_hash
@@ -49,16 +48,18 @@ describe CocoapodsMangle do
     context 'without frameworks' do
       let(:podfile_contents) do
         <<~PODFILE
-          platform :ios, '8.0'
+          platform :ios, '10.0'
           plugin 'cocoapods-mangle'
           target 'Mangle Integration' do
             pod 'ManglePod', path: '../pod'
+            pod 'Alamofire', '5.2.2'
           end
         PODFILE
       end
       let(:expected_defines) do
         %w[
           PodsDummy_ManglePod=Mangle_Integration_PodsDummy_ManglePod
+          PodsDummy_Alamofire=Mangle_Integration_PodsDummy_Alamofire
         ]
       end
   
@@ -68,7 +69,7 @@ describe CocoapodsMangle do
     context 'with frameworks' do
       let(:podfile_contents) do
         <<~PODFILE
-          platform :ios, '8.0'
+          platform :ios, '10.0'
           use_frameworks!
           plugin 'cocoapods-mangle'
           target 'Mangle Integration' do
@@ -94,7 +95,7 @@ describe CocoapodsMangle do
     context 'without frameworks' do
       let(:podfile_contents) do
         <<~PODFILE
-          platform :ios, '8.0'
+          platform :ios, '10.0'
           plugin 'cocoapods-mangle'
           target 'Mangle Integration' do
             pod 'ManglePod', path: '../pod'
@@ -118,7 +119,7 @@ describe CocoapodsMangle do
     context 'with frameworks' do
       let(:podfile_contents) do
         <<~PODFILE
-          platform :ios, '8.0'
+          platform :ios, '10.0'
           use_frameworks!
           plugin 'cocoapods-mangle'
           target 'Mangle Integration' do
