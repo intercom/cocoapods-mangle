@@ -79,6 +79,9 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -95,6 +98,7 @@ GEM
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     ruby-macho (1.4.0)
+    slop (3.6.0)
     thread_safe (0.3.6)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
@@ -113,6 +117,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods-mangle!
   pry
+  pry-remote
   rspec
   rspec_junit_formatter
 

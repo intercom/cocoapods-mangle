@@ -5,5 +5,6 @@ gemspec
 group :development do
   gem 'rspec'
   gem 'pry'
+  gem 'pry-remote'
   gem 'rspec_junit_formatter'
 end
