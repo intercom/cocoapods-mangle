@@ -52,14 +52,14 @@ describe CocoapodsMangle do
           plugin 'cocoapods-mangle'
           target 'Mangle Integration' do
             pod 'ManglePod', path: '../pod'
-            pod 'Alamofire', '5.2.2'
+            pod 'lottie-ios'
           end
         PODFILE
       end
       let(:expected_defines) do
         %w[
           PodsDummy_ManglePod=Mangle_Integration_PodsDummy_ManglePod
-          PodsDummy_Alamofire=Mangle_Integration_PodsDummy_Alamofire
+          PodsDummy_lottie_ios=Mangle_Integration_PodsDummy_lottie_ios
         ]
       end
   
