@@ -125,6 +125,9 @@ module CocoapodsMangle
         # Internal Swift symbols starting with __swift or ___swift such as should not be mangled
         # e.g. '00000000000050ac S ___swift_reflection_version' 
         symbol[/ __(_)?swift/] ||
+        # Internal Swift symbols starting with Swift such as should not be mangled
+        # e.g. 'Swift51Override' 
+        symbol[/Swift/] ||
         # Swift symbols starting with symbolic should be ignored
         # e.g. '0000000000000248 S symbolic _____ 9ManglePod9SomeClassC'
         symbol[/symbolic /] ||
