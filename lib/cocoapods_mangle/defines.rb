@@ -134,6 +134,9 @@ module CocoapodsMangle
         # _globalinit symbols should be skipped
         # e.g. 0000000000000000 T _globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0
         symbol[/ globalinit/] ||
+        # globalinit symbols should be skipped
+        # e.g. 0000000000000000 T globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0
+        symbol[/globalinit/] ||
         # Swift classes inheriting from Objective-C classes should not be mangled
         # e.g. '0000000000000290 S _OBJC_CLASS_$__TtC9ManglePod19SomeFoundationClass'
         symbol[/_OBJC_CLASS_\$__/] ||
