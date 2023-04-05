@@ -148,7 +148,10 @@ module CocoapodsMangle
         symbol[/____ /] ||
         # _PROTOCOL symbols should be skipped
         # e.g. 0000000000000000 _PROTOCOL_METHOD_TYPES_CAAction
-        symbol[/_PROTOCOL/]
+        symbol[/_PROTOCOL/] ||
+        # _swiftoverride_ symbols should be skipped
+        # e.g. _Zd4_swiftoverride_class_getSuperclassPKN5swift14TargetMetadataINS
+        symbol[/_\w+_swiftoverride_/]
     end
 
     def self.run_nm(binaries, flags)
@@ -156,3 +159,6 @@ module CocoapodsMangle
     end
   end
 end
+
+_Z34_swiftoverride_class_getSuperclassPKN5swift14TargetMetadataINS_9InProcessEEE=
+Mangle_Integration...dataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEPFPKNS_18TargetWitnessTableIS1_EES4_S8_E

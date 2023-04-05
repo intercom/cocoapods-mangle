@@ -4,8 +4,6 @@ require 'cocoapods_mangle/config'
 
 def defines_from_xcconfig(xcconfig_path)
   xcconfig = Xcodeproj::Config.new(File.new(xcconfig_path)).to_hash
-  
-  puts xcconfig
   xcconfig[CocoapodsMangle::Config::MANGLING_DEFINES_XCCONFIG_KEY].split(' ')
 end
 
