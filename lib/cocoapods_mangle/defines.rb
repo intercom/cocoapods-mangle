@@ -134,11 +134,11 @@ module CocoapodsMangle
         # Swift symbol references to Objective-C symbols should not be mangled
         # e.g. '00000000000108ca S _associated conformance So26SCNetworkReachabilityFlagsVs10SetAlgebraSCSQ'
         symbol[/associated conformance/] ||
-        # _globalinit symbols should be skipped
-        # e.g. 0000000000000000 T _globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0
+        # " globalinit" symbols should be skipped
+        # e.g. 0000000000000000 T " globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0"
         symbol[/ globalinit/] ||
-        # globalinit symbols should be skipped
-        # e.g. 0000000000000000 T globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0
+        # "globalinit" symbols should be skipped
+        # e.g. 0000000000000000 T "globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0"
         symbol[/globalinit/] ||
         # Swift classes inheriting from Objective-C classes should not be mangled
         # e.g. '0000000000000290 S _OBJC_CLASS_$__TtC9ManglePod19SomeFoundationClass'
