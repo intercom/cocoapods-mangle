@@ -150,8 +150,11 @@ module CocoapodsMangle
         # e.g. 0000000000000000 _PROTOCOL_METHOD_TYPES_CAAction
         symbol[/_PROTOCOL/] ||
         # _swiftoverride_ symbols should be skipped
-        # e.g. 0000000000000000 _PROTOCOL_METHOD_TYPES_CAAction
+        # e.g. _swiftoverride_
         symbol[/_\w+_swiftoverride_/]
+        # _Zxxxswift symbols should be skipped
+        # e.g. _ZN5swift34swift50override_conformsToProtocolEPKNS
+        symbol[/_Z\w+swift/]
     end
 
     def self.run_nm(binaries, flags)
