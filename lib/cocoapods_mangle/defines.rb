@@ -151,7 +151,7 @@ module CocoapodsMangle
         symbol[/_PROTOCOL/] ||
         # _swiftoverride_ symbols should be skipped
         # e.g. _swiftoverride_
-        symbol[/_\w+_swiftoverride_/]
+        symbol[/_\w+_swiftoverride_/] ||
         # _Zxxxswift symbols should be skipped
         # e.g. _ZN5swift34swift50override_conformsToProtocolEPKNS
         symbol[/_Z\w+swift/]
