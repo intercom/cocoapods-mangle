@@ -121,22 +121,40 @@ module CocoapodsMangle
     def self.swift_symbol?(symbol)
       # Swift binaries have many symbols starting with $s_ that should be excluded
       # e.g. '0000000000000258 S _$s9ManglePod9SomeClassCMF'
-      symbol[/ _\$s/] ||
+      symbol[/\$s/] ||
         # Internal Swift symbols starting with __swift or ___swift such as should not be mangled
         # e.g. '00000000000050ac S ___swift_reflection_version' 
         symbol[/ __(_)?swift/] ||
-        # Swift symbols starting with _symbolic should be ignored
-        # e.g. '0000000000000248 S _symbolic _____ 9ManglePod9SomeClassC'
-        symbol[/ _symbolic/] ||
+        # Internal Swift symbols starting with Swift such as should not be mangled
+        # e.g. 'Swift51Override' 
+        symbol[/Swift/] ||
+        # Swift symbols starting with symbolic should be ignored
+        # e.g. '0000000000000248 S symbolic _____ 9ManglePod9SomeClassC'
+        symbol[/symbolic /] ||
         # Swift symbol references to Objective-C symbols should not be mangled
         # e.g. '00000000000108ca S _associated conformance So26SCNetworkReachabilityFlagsVs10SetAlgebraSCSQ'
         symbol[/associated conformance/] ||
-        # _globalinit symbols should be skipped
-        # e.g. 0000000000000000 T _globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0
-        symbol[/ _globalinit/] ||
+        # " globalinit" symbols should be skipped
+        # e.g. 0000000000000000 T " globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0"
+        symbol[/ globalinit/] ||
+        # "globalinit" symbols should be skipped
+        # e.g. 0000000000000000 T "globalinit_33_A313450CFC1FC3D0CBEF4411412DB9E8_func0"
+        symbol[/globalinit/] ||
         # Swift classes inheriting from Objective-C classes should not be mangled
         # e.g. '0000000000000290 S _OBJC_CLASS_$__TtC9ManglePod19SomeFoundationClass'
-        symbol[/_OBJC_CLASS_\$__/]
+        symbol[/_OBJC_CLASS_\$__/] ||
+        # Swift symbols starting with ____ should be ignored
+        # e.g. ' ____ 6Lottie15AnimatedControlCC'
+        symbol[/____ /] ||
+        # _PROTOCOL symbols should be skipped
+        # e.g. 0000000000000000 _PROTOCOL_METHOD_TYPES_CAAction
+        symbol[/_PROTOCOL/] ||
+        # _swiftoverride_ symbols should be skipped
+        # e.g. _swiftoverride_
+        symbol[/_\w+_swiftoverride_/] ||
+        # _Zxxxswift symbols should be skipped
+        # e.g. _ZN5swift34swift50override_conformsToProtocolEPKNS
+        symbol[/_Z\w+swift/]
     end
 
     def self.run_nm(binaries, flags)
