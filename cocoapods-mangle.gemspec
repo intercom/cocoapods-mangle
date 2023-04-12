@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.license     = 'Apache-2.0'
   spec.email       = ['james@intercom.io']
   spec.homepage    = 'https://github.com/intercom/cocoapods-mangle'
-  spec.authors     = ['James Treanor']
+  spec.authors     = ['James Treanor, Brian Boyle']
   spec.summary     = 'A CocoaPods plugin which mangles ' \
                      'the symbols of your dependencies'
   spec.description = 'Mangling your dependencies symbols allows more than '    \

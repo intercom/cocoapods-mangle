@@ -154,7 +154,10 @@ module CocoapodsMangle
         symbol[/_\w+_swiftoverride_/] ||
         # _Zxxxswift symbols should be skipped
         # e.g. _ZN5swift34swift50override_conformsToProtocolEPKNS
-        symbol[/_Z\w+swift/]
+        symbol[/_Z\w+swift/] ||
+        # get_witness_table symbols should be skipped
+        # e.g. get_witness_table Say6.2
+        symbol[/get_witness_table /]
     end
 
     def self.run_nm(binaries, flags)
