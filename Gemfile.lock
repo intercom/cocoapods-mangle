@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocoapods-mangle (1.1.1)
+    cocoapods-mangle (1.1.2)
       cocoapods (~> 1.11.3)
 
 GEM
@@ -15,7 +15,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    addressable (2.8.2)
+    addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     algoliasearch (1.27.5)
       httpclient (~> 2.8, >= 2.8.3)
