@@ -7,4 +7,5 @@ group :development do
   gem 'pry'
   gem 'pry-remote'
   gem 'rspec_junit_formatter'
+  gem 'activesupport', '7.0.8'
 end
