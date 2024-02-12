@@ -1214,3 +1214,7 @@ libManglePod.a(SomeStruct.o):
 0000000000000000 S __swift_FORCE_LOAD_$_swiftCompatibility50_$_ManglePod
 0000000000000008 S __swift_FORCE_LOAD_$_swiftCompatibilityDynamicReplacements_$_ManglePod
 0000000000000012 s l_llvm.swift_module_hash
+
+libManglePod.a(BrianSwiftAsyncIntegration.o):
+0000000000000118 S _OBJC_CLASS_$_BrianSwiftAsyncIntegration
+00000000000000f0 S _OBJC_METACLASS_$_BrianSwiftAsyncIntegration

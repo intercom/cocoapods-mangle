@@ -17,5 +17,5 @@ Gem::Specification.new do |spec|
   spec.test_files       = Dir['spec/**/*.rb']
   spec.extra_rdoc_files = ['README.md', 'CHANGELOG.md']
   spec.require_paths    = ['lib']
-  spec.add_dependency 'cocoapods', '~> 1.14'
+  spec.add_dependency 'cocoapods', '~> 1.15'
 end

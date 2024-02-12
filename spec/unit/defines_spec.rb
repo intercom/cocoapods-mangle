@@ -35,6 +35,7 @@ describe CocoapodsMangle::Defines do
         FLAnimatedImage
         FLWeakProxy
         FLAnimatedImageView
+        BrianSwiftAsyncIntegration
       ]
     end
 
