@@ -1209,6 +1209,7 @@ libManglePod.a(SomeFunc.o):
 0000000000000008 S __swift_FORCE_LOAD_$_swiftCompatibilityDynamicReplacements_$_ManglePod
 0000000000000012 s l_llvm.swift_module_hash
 0000000000000012 S someSwift50Overrides
+0000000000000012 S someSwiftUI50Overrides
 
 libManglePod.a(SomeStruct.o):
 0000000000000010 S ___swift_reflection_version

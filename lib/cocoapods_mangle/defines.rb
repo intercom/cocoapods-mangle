@@ -131,7 +131,7 @@ module CocoapodsMangle
         # Internal Swift symbols starting with Swift+digit should not be mangled
         # e.g. 'Swift570Override' 
         symbol[/Swift\d+/] ||        
-        # Internal SwiftUI symbols starting with digit+SwiftU+optional_digit such as should not be mangled
+        # Internal SwiftUI symbols starting with digit+SwiftUI+optional_digit such as should not be mangled
         # e.g. '55SwiftUI', '55SwiftUI45'
         symbol[/\d+SwiftUI(\d+)?/] ||
         # Swift symbols starting with symbolic should be ignored
