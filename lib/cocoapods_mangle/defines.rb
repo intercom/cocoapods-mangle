@@ -69,7 +69,10 @@ module CocoapodsMangle
         class_name = selector[/[-|+]\[(.*?)\(/m, 1]
         classes.include? class_name
       end
-      selectors = selectors.map { |selector| selector[/[^ ]*\]\z/][0...-1] }
+      selectors = selectors.map do |selector|
+        cleaned = selector.split(']').first + ']'
+        cleaned[/[^ ]*\]\z/][0...-1]
+      end 
       selectors = selectors.map { |selector| selector.split(':').first }
       selectors.uniq
     end
