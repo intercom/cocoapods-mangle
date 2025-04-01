@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     macos:
-      xcode: 16.3.0
-      resource_class: macos.m1.medium.gen1
+      xcode: 16.0.0
+    resource_class: macos.m1.medium.gen1
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
