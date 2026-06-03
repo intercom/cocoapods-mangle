@@ -7,6 +7,11 @@ jobs:
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
+      - run:
+          name: install ruby
+          command: |
+            rbenv install -s "$(cat .ruby-version)"
+            rbenv rehash
       - restore_cache:
           keys:
           - macos-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum ".circleci/config.yml" }}
