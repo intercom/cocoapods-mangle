@@ -2,11 +2,16 @@ version: 2
 jobs:
   build:
     macos:
-      xcode: 16.0.0
-    resource_class: macos.m1.medium.gen1
+      xcode: "16.4.0"
+    resource_class: m4pro.medium
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
+      - run:
+          name: install ruby
+          command: |
+            rbenv install -s "$(cat .ruby-version)"
+            rbenv rehash
       - restore_cache:
           keys:
           - macos-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum ".circleci/config.yml" }}
